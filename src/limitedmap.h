@@ -1,9 +1,10 @@
-// Copyright (c) 2012 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_LIMITEDMAP_H
-#define DACRS_LIMITEDMAP_H
+#ifndef HONGHUO_LIMITEDMAP_H
+#define HONGHUO_LIMITEDMAP_H
 
 #include <assert.h> // TODO: remove
 #include <map>

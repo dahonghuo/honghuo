@@ -1,9 +1,10 @@
-// Copyright (c) 2012 The DACRS developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2014-2015 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_BLOOM_H
-#define DACRS_BLOOM_H
+#ifndef HONGHUO_BLOOM_H
+#define HONGHUO_BLOOM_H
 
 #include "serialize.h"
 #include "tx.h"
@@ -87,4 +88,4 @@ public:
     void UpdateEmptyFull();
 };
 
-#endif /* DACRS_BLOOM_H */
+#endif /* HONGHUO_BLOOM_H */

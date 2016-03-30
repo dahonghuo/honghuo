@@ -10,17 +10,10 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-	if (nVersion >= g_BlockVersion3) {
-		return SignatureHash();
-	} else {
-		return SerializeHash(*this, SER_GETHASH, CLIENT_VERSION);
-	}
+	return SignatureHash();
 }
 
 void CBlockHeader::SetHeight(unsigned int height) {
-	if (height < nUpdateBlockVersionHeight && height > 0) {
-		SetVersion(g_BlockVersion2);
-	}
 	this->nHeight = height;
 }
 

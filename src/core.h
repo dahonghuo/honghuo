@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_CORE_H
-#define DACRS_CORE_H
+#ifndef HONGHUO_CORE_H
+#define HONGHUO_CORE_H
 
 #include "key.h"
 #include "serialize.h"
@@ -19,7 +20,7 @@ static const int64_t MAX_MONEY = 1000000000 * COIN;
 static const int64_t MAX_MONEY_REG_NET = 20 * MAX_MONEY;
 
 static const int g_BlockVersion2 = 2;
-static const int g_BlockVersion3 = 3;
+
 
 inline int64_t GetMaxMoney()
 {
@@ -45,7 +46,7 @@ class CBlockHeader
 {
 public:
     // header
-    static const int CURRENT_VERSION=g_BlockVersion3;
+    static const int CURRENT_VERSION = g_BlockVersion2;
 protected:
     int nVersion;
     uint256 hashPrevBlock;

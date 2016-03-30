@@ -168,7 +168,7 @@ Array RPCConvertValues(const string &strMethod, const vector<string> &strParams)
     if (strMethod == "listunspent"            && n > 1) ConvertTo<int64_t>(params[1]);
     if (strMethod == "listunspent"            && n > 2) ConvertTo<Array>(params[2]);
     if (strMethod == "getblock"               && n > 1) ConvertTo<bool>(params[1]);
-    if (strMethod == "getdacrsstate"          && n > 0) ConvertTo<int>(params[0]);
+    if (strMethod == "gethonghuostate"          && n > 0) ConvertTo<int>(params[0]);
     if (strMethod == "getrawtransaction"      && n > 1) ConvertTo<int64_t>(params[1]);
     if (strMethod == "createrawtransaction"   && n > 0) ConvertTo<Array>(params[0]);
     if (strMethod == "createrawtransaction"   && n > 1) ConvertTo<Object>(params[1]);
@@ -311,7 +311,7 @@ string HelpMessageCli(bool mainProgram)
     {
         strUsage += _("Options:") + "\n";
         strUsage += "  -?                     " + _("This help message") + "\n";
-        strUsage += "  -conf=<file>           " + _("Specify configuration file (default: Dacrs.conf)") + "\n";
+        strUsage += "  -conf=<file>           " + _("Specify configuration file (default: honghuo.conf)") + "\n";
         strUsage += "  -datadir=<dir>         " + _("Specify data directory") + "\n";
         strUsage += "  -testnet               " + _("Use the test network") + "\n";
         strUsage += "  -regtest               " + _("Enter regression test mode, which uses a special chain in which blocks can be "
@@ -329,7 +329,7 @@ string HelpMessageCli(bool mainProgram)
         strUsage += "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n";
         strUsage += "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n";
 
-        strUsage += "\n" + _("SSL options: (see the Dacrs Wiki for SSL setup instructions)") + "\n";
+        strUsage += "\n" + _("SSL options: (see the honghuo Wiki for SSL setup instructions)") + "\n";
         strUsage += "  -rpcssl                " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n";
     }
 

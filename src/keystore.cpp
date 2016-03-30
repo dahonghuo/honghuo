@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,13 +16,13 @@ Object CKeyCombi::ToJsonObj()const {
 	if(mMainCkey.IsValid()) {
 		reply.push_back(Pair("address",mMainCkey.GetPubKey().GetKeyID().ToAddress()));
 		reply.push_back(Pair("mCkey",mMainCkey.ToString()));
-		reply.push_back(Pair("mCkeyBase58",CDacrsSecret(mMainCkey).ToString()));
+		reply.push_back(Pair("mCkeyBase58",CHonghuoSecret(mMainCkey).ToString()));
 		reply.push_back(Pair("mMainPk",mMainCkey.GetPubKey().ToString()));
 	}
 
 	if(mMinerCkey.IsValid()){
 		reply.push_back(Pair("mMinerCkey",mMinerCkey.ToString()));
-		reply.push_back(Pair("mMinerCkeyBase58",CDacrsSecret(mMinerCkey).ToString()));
+		reply.push_back(Pair("mMinerCkeyBase58",CHonghuoSecret(mMinerCkey).ToString()));
 		reply.push_back(Pair("mMinerPk",mMinerCkey.GetPubKey().ToString()));
 	}
 	reply.push_back(Pair("nCreationTime",nCreationTime));

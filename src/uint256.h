@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_UINT256_H
-#define DACRS_UINT256_H
+#ifndef HONGHUO_UINT256_H
+#define HONGHUO_UINT256_H
 
 #include <assert.h>
 #include <cstring>
@@ -177,4 +177,4 @@ inline uint256 uint256S(const std::string& str)
 }
 
 
-#endif // DACRS_UINT256_H
+#endif // HONGHUO_UINT256_H

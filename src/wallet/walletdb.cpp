@@ -387,7 +387,7 @@ unsigned int CWalletDB::nWalletDBUpdated = 0;
 void ThreadFlushWalletDB(const string& strFile)
 {
     // Make this thread recognisable as the wallet flushing thread
-    RenameThread("dacrs-wallet");
+    RenameThread("honghuo-wallet");
     static bool fOneThread;
     if (fOneThread)
         return;

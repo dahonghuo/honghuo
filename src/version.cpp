@@ -7,9 +7,9 @@
 #include <string>
 
 // Name of client reported in the 'version' message. Report the same name
-// for both Dacrsd and Dacrs-qt, to make it harder for attackers to
+// for both honghuo and honghuo-qt, to make it harder for attackers to
 // target servers or GUI users specifically.
-const std::string CLIENT_NAME("dacrs");
+const std::string CLIENT_NAME("honghuo");
 
 #ifdef WIN32
 // Client version number

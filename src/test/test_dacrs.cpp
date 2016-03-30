@@ -2,7 +2,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#define BOOST_TEST_MODULE Dacrs Test Suite
+#define BOOST_TEST_MODULE Honghuo Test Suite
 
 
 
@@ -26,7 +26,7 @@ extern void noui_connect();
 struct TestingSetup {
 	TestingSetup() {
 		int argc = 2;
-		string param1("dacrs-d.exe");
+		string param1("honghuo.exe");
 		string param2("");
 
 		bool bSetDataDir(false);
@@ -56,12 +56,12 @@ struct TestingSetup {
 
 			}
 #ifdef WIN32
-			strCurDir += "\\dacrs_test";
+			strCurDir += "\\HONGHUO_test";
 			param2 = "-datadir=";
 			param2 += strCurDir;
 
 #else
-			strCurDir +="/dacrs_test";
+			strCurDir +="/HONGHUO_test";
 			param2 = "-datadir=";
 			param2 +=strCurDir;
 #endif

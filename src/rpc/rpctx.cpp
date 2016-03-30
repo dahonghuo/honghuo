@@ -682,7 +682,7 @@ Value sign(const Array& params, bool fHelp) {
 //		throw runtime_error(
 //				"getaccountinfo \"address \" dspay address ( \"comment\" \"comment-to\" )\n"
 //						"\nGet an account info with dspay address\n" + HelpRequiringPassphrase() + "\nArguments:\n"
-//						"1. \"address \"  (string, required) The Dacrs address.\n"
+//						"1. \"address \"  (string, required) The Honghuo address.\n"
 //						"\nResult:\n"
 //						"\"account info\"  (string) \n"
 //						"\nExamples:\n" + HelpExampleCli("getaccountinfo", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\"")
@@ -697,7 +697,7 @@ Value sign(const Array& params, bool fHelp) {
 //		CDacrsAddress address(params[0].get_str());
 //		CKeyID keyid;
 //		if (!address.GetKeyID(keyid))
-//			throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Dacrs address");
+//			throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Honghuo address");
 //
 //		CUserID userId = keyid;
 //		if (!view.GetAccount(userId, aAccount)) {
@@ -1885,7 +1885,7 @@ Value gencheckpoint(const Array& params, bool fHelp)
                  + HelpExampleRpc("gencheckpoint", "\"privatekey\" \"filepath\""));
 	}
 	std::string strSecret = params[0].get_str();
-	CDacrsSecret vchSecret;
+	CHonghuoSecret vchSecret;
 	bool fGood = vchSecret.SetString(strSecret);
 
 	if (!fGood) throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid private key encoding");
@@ -1990,10 +1990,10 @@ Value validateaddress(const Array& params, bool fHelp)
 	if(fHelp || params.size() != 1)
 		{
 			throw runtime_error(
-					 "isvalideaddess \"dacrs address\"\n"
+					 "isvalideaddess \"honghuo address\"\n"
 					 "\ncheck address is valide\n"
 					 "\nArguments:\n"
-					 "1. \"dacrs address\"  (string, required) dacrs address\n"
+					 "1. \"honghuo address\"  (string, required) honghuo address\n"
 					 "\nResult:\n"
 					 "\nExamples:\n"
 			         + HelpExampleCli("isvalideaddress", "\"De5nZAbhMikMPGHzxvSGqHTgEuf3eNUiZ7\"")

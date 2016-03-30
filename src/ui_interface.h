@@ -1,10 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2012 The DACRS developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_UI_INTERFACE_H
-#define DACRS_UI_INTERFACE_H
+#ifndef HONGHUO_UI_INTERFACE_H
+#define HONGHUO_UI_INTERFACE_H
 
 #include <stdint.h>
 #include <string>

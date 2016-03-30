@@ -15,13 +15,6 @@
 #include "json/json_spirit_writer_template.h"
 using namespace json_spirit;
 
-map<string, string> mapBlackAccount =
-		 boost::assign::map_list_of
-		        ("ff72aa76a5597071e4a9ab43ebc668a59907b3b7", "DsmPCQdnyTvJ5koJaxViG2CBtuzuc6oZQ8" )
-				("fe465151eca40e0adda60c83df85879852fe51f4", "DsfBPrAAKvMnnmkyAAonK7zHFiiH3pmT4Q" );
-
-list<string> listBlockAppId = boost::assign::list_of("97560-1")("96298-1")("96189-1")("95130-1")("93694-1");
-
 
 bool CID::Set(const CRegID &id) {
 	CDataStream ds(SER_DISK, CLIENT_VERSION);
@@ -416,20 +409,13 @@ bool CRegisterAccountTx::CheckTransction(CValidationState &state, CAccountViewCa
 }
 
 uint256 CRegisterAccountTx::GetHash() const {
-	if (nTxVersion2 == nVersion) {
-		return SignatureHash();
-	}
-	return std::move(SerializeHash(*this));
+	return SignatureHash();
 }
 uint256 CRegisterAccountTx::SignatureHash() const {
 	CHashWriter ss(SER_GETHASH, 0);
 	CID userPubkey(userId);
 	CID minerPubkey(minerId);
-	if (nTxVersion2 == nVersion) {
-		ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << userPubkey << minerPubkey << VARINT(llFees);
-	} else {
-		ss << VARINT(nVersion) << nTxType << userPubkey << minerPubkey << VARINT(llFees) << VARINT(nValidHeight);
-	}
+	ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << userPubkey << minerPubkey << VARINT(llFees);
 	return ss.GetHash();
 }
 
@@ -479,10 +465,6 @@ bool CTransaction::ExecuteTx(int nIndex, CAccountViewCache &view, CValidationSta
 
 	if (CONTRACT_TX == nTxType) {
 
-		if(nHeight>nLimiteAppHeight &&  std::find(listBlockAppId.begin(), listBlockAppId.end(), boost::get<CRegID>(desUserId).ToString())!=listBlockAppId.end()) {
-			return state.DoS(100, ERRORMSG("ExecuteTx() : ContractTransaction ExecuteTx, destination app id error, RegId=%s", boost::get<CRegID>(desUserId).ToString()),
-									UPDATE_ACCOUNT_FAIL, "bad-read-account");
-		}
 		vector<unsigned char> vScript;
 		if(!scriptDB.GetScript(boost::get<CRegID>(desUserId), vScript)) {
 			return state.DoS(100, ERRORMSG("ExecuteTx() : ContractTransaction ExecuteTx, read account faild, RegId=%s", boost::get<CRegID>(desUserId).ToString()),
@@ -654,20 +636,13 @@ bool CTransaction::CheckTransction(CValidationState &state, CAccountViewCache &v
 	return true;
 }
 uint256 CTransaction::GetHash() const {
-	if (nTxVersion2 == nVersion) {
-		return SignatureHash();
-	}
-	return SerializeHash(*this);
+	return SignatureHash();
 }
 uint256 CTransaction::SignatureHash() const {
 	CHashWriter ss(SER_GETHASH, 0);
 	CID srcId(srcRegId);
 	CID desId(desUserId);
-	if (nTxVersion2 == nVersion) {
-		ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << srcId << desId << VARINT(llFees) << VARINT(llValues) << vContract;
-	} else {
-		ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << srcId << desId << VARINT(llFees) << vContract;
-	}
+	ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << srcId << desId << VARINT(llFees) << VARINT(llValues) << vContract;
 	return ss.GetHash();
 }
 
@@ -766,26 +741,14 @@ bool CRewardTransaction::CheckTransction(CValidationState &state, CAccountViewCa
 }
 uint256 CRewardTransaction::GetHash() const
 {
-	if (nTxVersion2 == nVersion) {
-		return SignatureHash();
-	}
-	return std::move(SerializeHash(*this));
+	return SignatureHash();
 }
 uint256 CRewardTransaction::SignatureHash() const {
 	CHashWriter ss(SER_GETHASH, 0);
 	CID accId(account);
-
-	if (nTxVersion2 == nVersion) {
-		ss << VARINT(nVersion) << nTxType << accId << VARINT(rewardValue) << VARINT(nHeight);
-	} else {
-		ss << VARINT(nVersion) << nTxType << accId << VARINT(rewardValue);
-	}
-
+	ss << VARINT(nVersion) << nTxType << accId << VARINT(rewardValue) << VARINT(nHeight);
 	return ss.GetHash();
 }
-
-
-
 
 bool CRegisterAppTx::ExecuteTx(int nIndex, CAccountViewCache &view,CValidationState &state, CTxUndo &txundo,
 		int nHeight, CTransactionDBCache &txCache, CScriptDBViewCache &scriptDB) {
@@ -854,10 +817,6 @@ bool CRegisterAppTx::ExecuteTx(int nIndex, CAccountViewCache &view,CValidationSt
 		if(!scriptDB.SetTxHashByAddress(sendKeyId, nHeight, nIndex+1, txundo.txHash.GetHex(), operAddressToTxLog))
 			return false;
 		txundo.vScriptOperLog.push_back(operAddressToTxLog);
-	}
-
-	if(nHeight > nLimiteAppHeight && acctInfo.keyID.ToString() != "bf12b3bd0092b52014d073defc142d6775b52c75") {
-		return false;
 	}
 	return true;
 }
@@ -982,19 +941,12 @@ bool CRegisterAppTx::CheckTransction(CValidationState &state, CAccountViewCache 
 }
 uint256 CRegisterAppTx::GetHash() const
 {
-	if (nTxVersion2 == nVersion) {
-		return SignatureHash();
-	}
-	return std::move(SerializeHash(*this));
+	return SignatureHash();
 }
 uint256 CRegisterAppTx::SignatureHash() const {
 	CHashWriter ss(SER_GETHASH, 0);
 	CID regAccId(regAcctId);
-	if (nTxVersion2 == nVersion ) {
-		ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << regAccId << script << VARINT(llFees);
-	} else {
-		ss << regAccId << script << VARINT(llFees) << VARINT(nValidHeight);
-	}
+	ss << VARINT(nVersion) << nTxType << VARINT(nValidHeight) << regAccId << script << VARINT(llFees);
 	return ss.GetHash();
 }
 
@@ -1097,17 +1049,10 @@ bool CAccount::IsMoneyOverflow(uint64_t nAddMoney) {
 		return ERRORMSG("money:%lld too larger than MaxMoney");
 	return true;
 }
-bool CAccount::IsBlackAccount() const{
-	return 	mapBlackAccount.count(keyID.ToString()) > 0;
-}
+
 
 bool CAccount::OperateAccount(OperType type, const uint64_t &value, const int nCurHeight) {
 	LogPrint("op_account", "before operate:%s\n", ToString());
-	if(nCurHeight > nFreezeBlackAcctHeight && IsBlackAccount()) {
-		ERRORMSG("operate black account error!\n");
-		return false;
-	}
-
 	if (!IsMoneyOverflow(value))
 		return false;
 

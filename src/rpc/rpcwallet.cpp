@@ -105,7 +105,7 @@ Value signmessage(const Array& params, bool fHelp)
             "\nSign a message with the private key of an address"
             + HelpRequiringPassphrase() + "\n"
             "\nArguments:\n"
-            "1. \"Dacrsaddress\"  (string, required) The Dacrs address to use for the private key.\n"
+            "1. \"Dacrsaddress\"  (string, required) The Honghuo address to use for the private key.\n"
             "2. \"message\"         (string, required) The message to create a signature of.\n"
             "\nResult:\n"
             "\"signature\"          (string) The signature of the message encoded in base 64\n"
@@ -153,8 +153,8 @@ Value sendtoaddresswithfee(const Array& params, bool fHelp)
 						"sendtoaddresswithfee (\"sendaddress\") \"recvaddress\" \"amount\" (fee)\n"
 						"\nSend an amount to a given address with fee. The amount is a real and is rounded to the nearest 0.00000001\n"
 						"\nArguments:\n"
-						"1. \"sendaddress\"  (string, optional) The Dacrs address to send to.\n"
-						"2. \"recvaddress\" (string, required) The Dacrs address to receive.\n"
+						"1. \"sendaddress\"  (string, optional) The Honghuo address to send to.\n"
+						"2. \"recvaddress\" (string, required) The Honghuo address to receive.\n"
 						"3.\"amount\"   (string,required) \n"
 						"4.\"fee\"      (string,required) \n"
 						"\nResult:\n"
@@ -287,8 +287,8 @@ Value sendtoaddressraw(const Array& params, bool fHelp)
 						+ HelpRequiringPassphrase() + "\nArguments:\n"
 						"1. \"fee\"     (numeric, required)  \n"
 						"2. \"amount\"  (numeric, required)  \n"
-						"3. \"srcaddress\"  (string, required) The Dacrs address to send to.\n"
-						"4. \"recvaddress\"  (string, required) The Dacrs address to receive.\n"
+						"3. \"srcaddress\"  (string, required) The Honghuo address to send to.\n"
+						"4. \"recvaddress\"  (string, required) The Honghuo address to receive.\n"
 						"5. \"height\"  (int, optional) \n"
 						"\nResult:\n"
 						"\"transactionid\"  (string) The transaction id.\n"
@@ -383,8 +383,8 @@ Value sendtoaddress(const Array& params, bool fHelp)
 						"sendtoaddress (\"Dacrsaddress\") \"receive address\" \"amount\"\n"
 						"\nSend an amount to a given address. The amount is a real and is rounded to the nearest 0.00000001\n"
 						+ HelpRequiringPassphrase() + "\nArguments:\n"
-						"1. \"Dacrsaddress\"  (string, optional) The Dacrs address to send to.\n"
-						"2. receive address   (string, required) The Dacrs address to receive\n"
+						"1. \"Dacrsaddress\"  (string, optional) The Honghuo address to send to.\n"
+						"2. receive address   (string, required) The Honghuo address to receive\n"
 						"3.\"amount\"   (string, required) \n"
 						"\nResult:\n"
 						"\"transactionid\"  (string) The transaction id.\n"
@@ -656,7 +656,7 @@ Value encryptwallet(const Array& params, bool fHelp)
             "\nExamples:\n"
             "\nEncrypt you wallet\n"
             + HelpExampleCli("encryptwallet", "\"my pass phrase\"") +
-            "\nNow set the passphrase to use the wallet, such as for signing or sending Dacrs\n"
+            "\nNow set the passphrase to use the wallet, such as for signing or sending Honghuo\n"
             + HelpExampleCli("walletpassphrase", "\"my pass phrase\"") +
             "\nNow we can so something like sign\n"
             + HelpExampleCli("signmessage", "\"Dacrsaddress\" \"test message\"") +
@@ -700,7 +700,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     Object retObj;
     retObj.push_back(Pair("encrypt", true));
     return retObj;
-    //return "wallet encrypted; Dacrs server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
+    //return "wallet encrypted; Honghuo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
 }
 
 Value settxfee(const Array& params, bool fHelp)
@@ -738,7 +738,7 @@ Value getwalletinfo(const Array& params, bool fHelp)
             "\nResult:\n"
             "{\n"
             "  \"walletversion\": xxxxx,     (numeric) the wallet version\n"
-            "  \"balance\": xxxxxxx,         (numeric) the total Dacrs balance of the wallet\n"
+            "  \"balance\": xxxxxxx,         (numeric) the total Honghuo balance of the wallet\n"
             "  \"Inblocktx\": xxxxxxx,       (numeric) the size of transactions in the wallet\n"
             "  \"uncomfirmedtx\": xxxxxx,    (numeric) the size of unconfirmtx transactions in the wallet\n"
             "  \"unlocked_until\": ttt,      (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked\n"

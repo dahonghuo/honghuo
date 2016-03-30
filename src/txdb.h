@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The DACRS developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_TXDB_LEVELDB_H
-#define DACRS_TXDB_LEVELDB_H
+#ifndef HONGHUO_TXDB_LEVELDB_H
+#define HONGHUO_TXDB_LEVELDB_H
 
 #include "leveldbwrapper.h"
 #include "main.h"
@@ -130,4 +131,4 @@ public:
 	bool GetTxHashByAddress(const CKeyID &keyId, int nHeight, map<vector<unsigned char>, vector<unsigned char> > &mapTxHash);
 	Object ToJosnObj(string Prefix);
 };
-#endif // DACRS_TXDB_LEVELDB_H
+#endif // HONGHUO_TXDB_LEVELDB_H

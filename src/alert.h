@@ -1,10 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2009-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRSALERT_H_
-#define _DACRSALERT_H_ 1
+#ifndef _HONGHUOALERT_H_
+#define _HONGHUOALERT_H_ 1
 
 #include "serialize.h"
 #include "sync.h"

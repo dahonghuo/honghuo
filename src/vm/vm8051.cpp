@@ -1289,7 +1289,7 @@ static RET_DEFINE ExWriteOutAppOperateFunc(unsigned char * ipara,void * pVmEvn)
 	while(count--)
 	{
 		ss >> temp;
-		if(pVmRunEvn->GetComfirHeight() > nFreezeBlackAcctHeight && temp.mMoney < 0) //不能小于0,防止 上层传错金额小于20150904
+		if(temp.mMoney < 0) //不能小于0,防止 上层传错金额小于20150904
 		{
 			return RetFalse("para err");
 		}
@@ -1313,11 +1313,11 @@ static RET_DEFINE ExGetBase58AddrFunc(unsigned char * ipara,void * pVmEvn){
 	 if (!GetKeyId(*pVmRunEvn->GetCatchView(),*retdata.at(0).get(), addrKeyId)) {
 	    	return RetFalse(string(__FUNCTION__)+"para  err !");
 	 }
-	 string dacrsaddr = addrKeyId.ToAddress();
+	 string honghuoaddr = addrKeyId.ToAddress();
 
 	 auto tem =  make_shared<std::vector< vector<unsigned char> > >();
 	vector<unsigned char> vTemp;
-	vTemp.assign(dacrsaddr.c_str(),dacrsaddr.c_str()+dacrsaddr.length());
+	vTemp.assign(honghuoaddr.c_str(),honghuoaddr.c_str()+honghuoaddr.length());
 	(*tem.get()).push_back(vTemp);
 	return std::make_tuple (true,0, tem);
 }
@@ -1360,7 +1360,7 @@ enum CALL_API_FUN {
 	GET_APP_USER_ACC_VALUE_FUN,             //!<GET_APP_USER_ACC_FUN
 	GET_APP_USER_ACC_FUND_WITH_TAG_FUN,             //!<GET_APP_USER_ACC_FUND_WITH_TAG_FUN
 	GET_WIRITE_OUT_APP_OPERATE_FUN,             //!<GET_WIRITE_OUT_APP_OPERATE_FUN
-	GET_DACRS_ADDRESS_FUN,
+	GET_HONGHUO_ADDRESS_FUN,
 };
 
 const static string API_METOHD[] =
@@ -1400,7 +1400,7 @@ const static string API_METOHD[] =
 	"GET_APP_USER_ACC_VALUE_FUN",
 	"GET_APP_USER_ACC_FUND_WITH_TAG_FUN",
 	"GET_WIRITE_OUT_APP_OPERATE_FUN",
-	"GET_DACRS_ADDRESS_FUN" };
+	"GET_HONGHUO_ADDRESS_FUN" };
 
 const static struct __MapExterFun FunMap[] = { //
 		{ COMP_FUNC, ExInt64CompFunc },			//
@@ -1441,7 +1441,7 @@ const static struct __MapExterFun FunMap[] = { //
 		{GET_APP_USER_ACC_VALUE_FUN,GetUserAppAccValue},
 		{GET_APP_USER_ACC_FUND_WITH_TAG_FUN,GetUserAppAccFoudWithTag},
 		{GET_WIRITE_OUT_APP_OPERATE_FUN,ExWriteOutAppOperateFunc},
-		{GET_DACRS_ADDRESS_FUN,ExGetBase58AddrFunc},
+		{GET_HONGHUO_ADDRESS_FUN,ExGetBase58AddrFunc},
 
 		};
 

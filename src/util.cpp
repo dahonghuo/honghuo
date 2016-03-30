@@ -351,7 +351,7 @@ int LogPrintStr(const char* category, const string &str) {
 
 		boost::filesystem::path pathDebug;
 		string file = it->first + ".log";  //  it->first.c_str() = "INFO"
-		pathDebug = GetDataDir() / file;   // /home/share/bille/dacrs_test/regtest/INFO.log
+		pathDebug = GetDataDir() / file;   // /home/share/bille/HONGHUO_test/regtest/INFO.log
 		// Debug print useful for profiling
 		if (SysCfg().IsLogTimestamps() && log.m_newLine) {
             string  timeFormat = DateTimeStrFormat("%Y-%m-%d %H:%M:%S", GetTime());
@@ -828,7 +828,7 @@ static string FormatException(exception* pex, const char* pszThread) {
 	char pszModule[MAX_PATH] = "";
 	GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-	const char* pszModule = "Dacrs";
+	const char* pszModule = "Honghuo";
 #endif
 	if (pex)
 		return strprintf(
@@ -852,13 +852,13 @@ void PrintExceptionContinue(exception* pex, const char* pszThread) {
 
 boost::filesystem::path GetDefaultDataDir() {
 	namespace fs = boost::filesystem;
-	// Windows < Vista: C:\Documents and Settings\Username\Application Data\Dacrs
-	// Windows >= Vista: C:\Users\Username\AppData\Roaming\Dacrs
-	// Mac: ~/Library/Application Support/Dacrs
-	// Unix: ~/.Dacrs
+	// Windows < Vista: C:\Documents and Settings\Username\Application Data\Honghuo
+	// Windows >= Vista: C:\Users\Username\AppData\Roaming\Honghuo
+	// Mac: ~/Library/Application Support/Honghuo
+	// Unix: ~/.Honghuo
 #ifdef WIN32
 	// Windows
-	return GetSpecialFolderPath(CSIDL_APPDATA) / "Dacrs";
+	return GetSpecialFolderPath(CSIDL_APPDATA) / "Honghuo";
 #else
 	fs::path pathRet;
 	char* pszHome = getenv("HOME");
@@ -873,7 +873,7 @@ boost::filesystem::path GetDefaultDataDir() {
 	return pathRet / "Bitcoin";
 #else
 	// Unix
-	return pathRet / ".Dacrs";
+	return pathRet / ".Honghuo";
 #endif
 #endif
 }
@@ -923,7 +923,7 @@ void ClearDatadirCache() {
 }
 
 boost::filesystem::path GetConfigFile() {
-	boost::filesystem::path pathConfigFile(CBaseParams::GetArg("-conf", "Dacrs.conf"));
+	boost::filesystem::path pathConfigFile(CBaseParams::GetArg("-conf", "honghuo.conf"));
 	if (!pathConfigFile.is_complete())
 		pathConfigFile = GetDataDir(false) / pathConfigFile;
 	return pathConfigFile;
@@ -1170,7 +1170,7 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime) {
 				if (!fMatch) {
 					fDone = true;
 					string strMessage = _("Warning: Please check that your computer's date and time "
-							"are correct! If your clock is wrong Dacrs will not work properly.");
+							"are correct! If your clock is wrong Honghuo will not work properly.");
 					strMiscWarning = strMessage;
 					LogPrint("INFO", "*** %s\n", strMessage);
 					uiInterface.ThreadSafeMessageBox(strMessage, "", CClientUIInterface::MSG_WARNING);
@@ -1216,7 +1216,7 @@ string FormatFullVersion() {
 	return CLIENT_BUILD;
 }
 
-// Format the subversion field according to BIP 14 spec (https://en.Dacrs.it/wiki/BIP_0014)
+// Format the subversion field according to BIP 14 spec (https://en.bitcoin.it/wiki/BIP_0014)
 string FormatSubVersion(const string& name, int nClientVersion, const vector<string>& comments) {
 	ostringstream ss;
 	ss << "/";

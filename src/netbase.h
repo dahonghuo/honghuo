@@ -1,12 +1,13 @@
 // Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_NETBASE_H
-#define DACRS_NETBASE_H
+#ifndef HONGHUO_NETBASE_H
+#define HONGHUO_NETBASE_H
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include "./compat/compat.h"

@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRS_COMPAT_H
-#define _DACRS_COMPAT_H
+#ifndef _HONGHUO_COMPAT_H
+#define _HONGHUO_COMPAT_H
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT

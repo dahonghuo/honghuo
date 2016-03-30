@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(chain_regtest) {
 	BOOST_CHECK(SysParamsReg().AlertKey() == ParseHex("036e15523feb9e329b4fdf53c227fc89ea45a1a36342e7e38fad7fe6e3777243af"));
 	BOOST_CHECK(SysParamsReg().GetDefaultPort() == 18666);
 //	BOOST_CHECK(SysParamsReg().ProofOfWorkLimit() == (~arith_uint256(0) >> 6));
-	BOOST_CHECK(SysParamsReg().SubsidyHalvingInterval() == 150);
+	BOOST_CHECK(SysParamsReg().GetSubsidyHalvingInterval() == 150);
 	BOOST_CHECK(SysParamsReg().RequireRPCPassword() == false);
 	BOOST_CHECK(SysParamsReg().DataDir() == "regtest");
 	BOOST_CHECK(SysParamsReg().NetworkID() == CBaseParams::REGTEST);

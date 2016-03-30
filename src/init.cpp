@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include "init.h"
@@ -114,13 +115,13 @@ void Shutdown()
     TRY_LOCK(cs_Shutdown, lockShutdown);
     if (!lockShutdown) return;
 
-    RenameThread("Dacrs-shutoff");
+    RenameThread("Honghuo-shutoff");
     mempool.AddTransactionsUpdated(1);
     StopRPCThreads();
     ShutdownRPCMining();
 
 
-    GenerateDacrsBlock(false, NULL, 0);
+    GenerateHonghuoBlock(false, NULL, 0);
 
     StopNode();
     UnregisterNodeSignals(GetNodeSignals());
@@ -209,7 +210,7 @@ string HelpMessage(HelpMessageMode hmm)
     strUsage += "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n";
     strUsage += "  -checkblocks=<n>       " + _("How many blocks to check at startup (default: 288, 0 = all)") + "\n";
     strUsage += "  -checklevel=<n>        " + _("How thorough the block verification of -checkblocks is (0-4, default: 3)") + "\n";
-    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: Dacrs.conf)") + "\n";
+    strUsage += "  -conf=<file>           " + _("Specify configuration file (default: honghuo.conf)") + "\n";
     if (hmm == HMM_BITCOIND)
     {
 #if !defined(WIN32)
@@ -221,7 +222,7 @@ string HelpMessage(HelpMessageMode hmm)
     strUsage += "  -keypool=<n>           " + _("Set key pool size to <n> (default: 100)") + "\n";
     strUsage += "  -loadblock=<file>      " + _("Imports blocks from external blk000??.dat file") + " " + _("on startup") + "\n";
     strUsage += "  -par=<n>               " + strprintf(_("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)"), -(int)boost::thread::hardware_concurrency(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS) + "\n";
-    strUsage += "  -pid=<file>            " + _("Specify pid file (default: dacrsd.pid)") + "\n";
+    strUsage += "  -pid=<file>            " + _("Specify pid file (default: honghuo.pid)") + "\n";
     strUsage += "  -reindex               " + _("Rebuild block chain index from current blk000??.dat files") + " " + _("on startup") + "\n";
     strUsage += "  -txindex               " + _("Maintain a full transaction index (default: 0)") + "\n";
 
@@ -324,7 +325,7 @@ string HelpMessage(HelpMessageMode hmm)
     strUsage += "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n";
     strUsage += "  -rpcthreads=<n>        " + _("Set the number of threads to service RPC calls (default: 4)") + "\n";
 
-    strUsage += "\n" + _("RPC SSL options: (see the Dacrs Wiki for SSL setup instructions)") + "\n";
+    strUsage += "\n" + _("RPC SSL options: (see the Honghuo Wiki for SSL setup instructions)") + "\n";
     strUsage += "  -rpcssl                                  " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n";
     strUsage += "  -rpcsslcertificatechainfile=<file.cert>  " + _("Server certificate file (default: server.cert)") + "\n";
     strUsage += "  -rpcsslprivatekeyfile=<file.pem>         " + _("Server private key (default: server.pem)") + "\n";
@@ -348,7 +349,7 @@ struct CImportingNow
 
 void ThreadImport(vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("Dacrs-loadblk");
+    RenameThread("honghuo-loadblk");
 
     // -reindex
     if (SysCfg().IsReindex()) {
@@ -399,7 +400,7 @@ void ThreadImport(vector<boost::filesystem::path> vImportFiles)
 }
 
 
-/** Initialize Dacrs.
+/** Initialize Honghuo.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2(boost::thread_group& threadGroup)
@@ -595,20 +596,20 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     string strDataDir = GetDataDir().string();
 
-    // Make sure only a single Dacrs process is using the data directory.
+    // Make sure only a single Honghuo process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Dacrs Core is probably already running."), strDataDir));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. honghuo Core is probably already running."), strDataDir));
 
 //    if (GetBoolArg("-shrinkdebugfile", !fDebug))
 //        ShrinkDebugFile();
 
     LogPrint("INFO","\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    LogPrint("INFO","Dacrs version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE);
-    printf("Dacrs version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    LogPrint("INFO","honghuo version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE);
+    printf("honghuo version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     LogPrint("INFO","Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
 //    if (!fLogTimestamps)
@@ -1000,7 +1001,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // Generate coins in the background
 	if (pwalletMain) {
-		GenerateDacrsBlock(SysCfg().GetBoolArg("-gen", false), pwalletMain, SysCfg().GetArg("-genproclimit", -1));
+		GenerateHonghuoBlock(SysCfg().GetBoolArg("-gen", false), pwalletMain, SysCfg().GetArg("-genproclimit", -1));
 		pwalletMain->ResendWalletTransactions();
         threadGroup.create_thread(boost::bind(&ThreadFlushWalletDB, boost::ref(pwalletMain->strWalletFile)));
 

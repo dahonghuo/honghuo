@@ -1,9 +1,10 @@
 // Copyright (c) 2012 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_MRUSET_H
-#define DACRS_MRUSET_H
+#ifndef HONGHUO_MRUSET_H
+#define HONGHUO_MRUSET_H
 
 #include <deque>
 #include <set>

@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRS_COMPAT_BYTESWAP_H
-#define _DACRS_COMPAT_BYTESWAP_H
+#ifndef _HONGHUO_COMPAT_BYTESWAP_H
+#define _HONGHUO_COMPAT_BYTESWAP_H
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include <stdint.h>
@@ -44,4 +44,4 @@ inline uint64_t bswap_64(uint64_t x)
 }
 #endif // HAVE_DECL_BSWAP64
 
-#endif // _DACRS_COMPAT_BYTESWAP_H
+#endif // _HONGHUO_COMPAT_BYTESWAP_H

@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_KEYSTORE_H
-#define DACRS_KEYSTORE_H
+#ifndef HONGHUO_KEYSTORE_H
+#define HONGHUO_KEYSTORE_H
 
 #include "key.h"
 #include "sync.h"

@@ -1,18 +1,18 @@
 dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
 AC_PREREQ([2.60])
 define(_CLIENT_VERSION_MAJOR, 1)
-define(_CLIENT_VERSION_MINOR, 1)
-define(_CLIENT_VERSION_REVISION, 2)
-define(_CLIENT_VERSION_BUILD, 3)
+define(_CLIENT_VERSION_MINOR, 0)
+define(_CLIENT_VERSION_REVISION, 0)
+define(_CLIENT_VERSION_BUILD, 1)
 define(_CLIENT_VERSION_IS_RELEASE, true)
-define(_COPYRIGHT_YEAR, 2015)
-AC_INIT([Dacrs Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[info@Dacrs.org],[Dacrs])
+define(_COPYRIGHT_YEAR, 2016)
+AC_INIT([Honghuo Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[info@honghuo.org],[Honghuo])
 AC_CONFIG_AUX_DIR([src/build-aux])
 AC_CONFIG_MACRO_DIR([src/m4])
 AC_CANONICAL_HOST
-AH_TOP([#ifndef DACRS_CONFIG_H])
-AH_TOP([#define DACRS_CONFIG_H])
-AH_BOTTOM([#endif //DACRS_CONFIG_H])
+AH_TOP([#ifndef HONGHUO_CONFIG_H])
+AH_TOP([#define HONGHUO_CONFIG_H])
+AH_BOTTOM([#endif //HONGHUO_CONFIG_H])
 
 # This m4 will only be used if a system copy cannot be found. This is helpful
 # on systems where autotools are installed but the pkg-config macros are not in
@@ -116,7 +116,7 @@ AC_ARG_WITH([protoc-bindir],[AS_HELP_STRING([--with-protoc-bindir=BIN_DIR],[spec
 
 
 AC_CONFIG_SRCDIR([src])
-AC_CONFIG_HEADERS([src/dacrs-config.h])
+AC_CONFIG_HEADERS([src/honghuo-config.h])
 
 dnl Checks for programs.
 AC_PROG_CXX
@@ -304,7 +304,7 @@ dnl Check for pthread compile/link requirements
 AX_PTHREAD
 INCLUDES="$INCLUDES $PTHREAD_CFLAGS"
 
-# The following macro will add the necessary defines to dacrs-config.h, but
+# The following macro will add the necessary defines to honghuo-config.h, but
 # they also need to be passed down to any subprojects. Pull the results out of
 # the cache and add them to CPPFLAGS.
 AC_SYS_LARGEFILE
@@ -414,7 +414,7 @@ AC_SUBST(LIBMEMENV)
 
 if test x$enable_wallet != xno; then
     dnl Check for libdb_cxx only if wallet enabled
-    DACRS_FIND_BDB48
+    HONGHUO_FIND_BDB48
 fi
 
 dnl Check for libminiupnpc (optional)

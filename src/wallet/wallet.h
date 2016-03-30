@@ -1,9 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The DACRS developers
+// Copyright (c) 2009-2013 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DACRS_WALLET_H
-#define DACRS_WALLET_H
+#ifndef HONGHUO_WALLET_H
+#define HONGHUO_WALLET_H
 
 #include "core.h"
 #include "crypter.h"

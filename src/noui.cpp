@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -245,7 +246,7 @@ static bool noui_RemoveTransaction(const uint256 &hash) {
 
 void noui_connect()
 {
-    // Connect Dacrsd signal handlers
+    // Connect Honghuo signal handlers
 	uiInterface.RevTransaction.connect(noui_RevTransaction);
 	uiInterface.RevAppTransaction.connect(noui_RevAppTransaction);
     uiInterface.ThreadSafeMessageBox.connect(noui_ThreadSafeMessageBox);

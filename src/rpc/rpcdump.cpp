@@ -124,7 +124,7 @@ Value importprivkey(const Array& params, bool fHelp)
 //		fRescan = params[2].get_bool();
 //	}
 
-    CDacrsSecret vchSecret;
+    CHonghuoSecret vchSecret;
     bool fGood = vchSecret.SetString(strSecret);
 
     if (!fGood) throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid private key encoding");
@@ -220,7 +220,7 @@ Value dumpprivkey(const Array& params, bool fHelp)
             "\nReveals the private key corresponding to 'Dacrsaddress'.\n"
             "Then the importprivkey can be used with this output\n"
             "\nArguments:\n"
-            "1. \"Dacrsaddress\"   (string, required) The Dacrs address for the private key\n"
+            "1. \"Honghuoaddress\"   (string, required) The Honghuo address for the private key\n"
             "\nResult:\n"
             "\"key\"                (string) The private key\n"
             "\nExamples:\n"
@@ -232,9 +232,9 @@ Value dumpprivkey(const Array& params, bool fHelp)
     EnsureWalletIsUnlocked();
 
     string strAddress = params[0].get_str();
-    CDacrsAddress address;
+    CHonghuoAddress address;
     if (!address.SetString(strAddress))
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Dacrs address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Honghuo address");
     CKeyID keyID;
     if (!address.GetKeyID(keyID))
         throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
@@ -245,9 +245,9 @@ Value dumpprivkey(const Array& params, bool fHelp)
     if (!pwalletMain->GetKey(keyID, minerkey,true))
            throw JSONRPCError(RPC_WALLET_ERROR, "Private key for address " + strAddress + " is not known");
     Object reply;
-    	reply.push_back(Pair("privkey", CDacrsSecret(vchSecret).ToString()));
+    	reply.push_back(Pair("privkey", CHonghuoSecret(vchSecret).ToString()));
     if(minerkey.ToString() != vchSecret.ToString())
-    	reply.push_back(Pair("minerkey", CDacrsSecret(minerkey).ToString()));
+    	reply.push_back(Pair("minerkey", CHonghuoSecret(minerkey).ToString()));
     else
     	reply.push_back(Pair("minerkey", " "));
     return reply;
@@ -269,7 +269,7 @@ Value dumpwallet(const Array& params, bool fHelp) {
 		throw JSONRPCError(RPC_INVALID_PARAMETER, "Cannot open wallet dump file");
 
 	Object reply;
-	reply.push_back(Pair("created by Dacrs", CLIENT_BUILD + CLIENT_DATE));
+	reply.push_back(Pair("created by Honghuo", CLIENT_BUILD + CLIENT_DATE));
 	reply.push_back(Pair("Created Time ", EncodeDumpTime(GetTime())));
 	reply.push_back(Pair("Best block index hight ", chainActive.Height()));
 	reply.push_back(Pair("Best block hash ", chainActive.Tip()->GetBlockHash().ToString()));

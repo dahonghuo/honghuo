@@ -348,8 +348,8 @@ bool CVmRunEvn::OpeatorAccount(const vector<CVmOperate>& listoperate, CAccountVi
 				return false;                                           /// 账户不存在
 			}
 		}else{
-			string dacrsaddr(accountid.begin(), accountid.end());
-			userkeyid = CKeyID(dacrsaddr);
+			string honghuoaddr(accountid.begin(), accountid.end());
+			userkeyid = CKeyID(honghuoaddr);
 			 if(!view.GetAccount(CUserID(userkeyid), *tem.get()))
 			 {
 				return false;                                           /// 账户不存在

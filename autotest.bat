@@ -28,7 +28,7 @@ if /i "%choice%"=="3" goto s2
 exit /b 0
 
 :s0
-copy  %curdir%\src\test\data\Dacrs.conf %targetdir%\Dacrs.conf
+copy  %curdir%\src\test\data\honghuo.conf %targetdir%\honghuo.conf
 
 :s1
 call :ClrEnvironment

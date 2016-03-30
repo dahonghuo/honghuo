@@ -90,7 +90,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 			// First part of help message is specific to Dacrsd / RPC client
 			std::string strUsage = _("Bitcoin Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n\n"
 					+ _("Usage:") + "\n" + "  Dacrsd [options]                     " + _("Start Bitcoin Core Daemon")
-					+ "\n" + _("Usage (deprecated, use Dacrs-cli):") + "\n"
+					+ "\n" + _("Usage (deprecated, use Honghuo-cli):") + "\n"
 					+ "  Dacrsd [options] <command> [params]  " + _("Send command to Bitcoin Core") + "\n"
 					+ "  Dacrsd [options] help                " + _("List commands") + "\n"
 					+ "  Dacrsd [options] help <command>      " + _("Get help for a command") + "\n";
@@ -105,7 +105,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 		// Command-line RPC
 		bool fCommandLine = false;
 		for (int i = 1; i < argc; i++)
-			if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Dacrs:"))
+			if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Honghuo:"))
 				fCommandLine = true;
 
 		if (fCommandLine) {
@@ -125,7 +125,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 	return fRet;
 }
 
-std::tuple<bool, boost::thread*> RunDacrs(int argc, char* argv[]) {
+std::tuple<bool, boost::thread*> RunHonghuo(int argc, char* argv[]) {
 	boost::thread* detectShutdownThread = NULL;
 	static boost::thread_group threadGroup;
 	SetupEnvironment();
@@ -627,10 +627,10 @@ bool SysTestBase::DisConnectBlock(int nNum) {
 
 void SysTestBase::StartServer(int argc,const char* argv[]) {
 //		int argc = 2;
-//		char* argv[] = {"D:\\cppwork\\Dacrs\\src\\Dacrsd.exe","-datadir=d:\\bitcoin" };
+//		char* argv[] = {"D:\\cppwork\\Honghuo\\src\\Dacrsd.exe","-datadir=d:\\bitcoin" };
 	assert(pThreadShutdown == NULL);
 	{
-	std::tuple<bool, boost::thread*> ret = RunDacrs(argc, const_cast<char **>(argv));
+	std::tuple<bool, boost::thread*> ret = RunHonghuo(argc, const_cast<char **>(argv));
 	pThreadShutdown = std::get<1>(ret);
 	}
 }

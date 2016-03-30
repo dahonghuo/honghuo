@@ -212,7 +212,7 @@ Value getaddednodeinfo(const Array& params, bool fHelp)
             "    \"connected\" : true|false,          (boolean) If connected\n"
             "    \"addresses\" : [\n"
             "       {\n"
-            "         \"address\" : \"192.168.0.201:8333\",  (string) The Dacrs server host and port\n"
+            "         \"address\" : \"192.168.0.201:8333\",  (string) The Honghuo server host and port\n"
             "         \"connected\" : \"outbound\"           (string) connection, inbound or outbound\n"
             "       }\n"
             "       ,...\n"
@@ -386,14 +386,14 @@ Value getnetworkinfo(const Array& params, bool fHelp)
     return obj;
 }
 /*
- *   获取最近 N个块状态信息: getdacrsstate  param
+ *   获取最近 N个块状态信息: gethonghuostate  param
  *
  * */
-Value getdacrsstate(const Array& params, bool fHelp)
+Value gethonghuostate(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "getdacrsstate \"num\"\n"
+            "gethonghuostate \"num\"\n"
 			"\nget state data about the recently blocks.\n"
             "\nArguments:\n"
             "1.num   (numeric,required, > 0) The number of the recently blocks.\n"
@@ -406,8 +406,8 @@ Value getdacrsstate(const Array& params, bool fHelp)
             "  \"blockminer\": n, (numeric)get the miner of each block\n"
             "}\n"
             "\nExamples:\n"
-            + HelpExampleCli("getdacrsstate", "\"5\"")
-            + HelpExampleRpc("getdacrsstate", "\"5\"")
+            + HelpExampleCli("gethonghuostate", "\"5\"")
+            + HelpExampleRpc("gethonghuostate", "\"5\"")
        );
 
 	int i = 0,nHeight = 0;

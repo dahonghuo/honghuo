@@ -1,9 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DACRS_TXMEMPOOL_H
-#define DACRS_TXMEMPOOL_H
+#ifndef HONGHUO_TXMEMPOOL_H
+#define HONGHUO_TXMEMPOOL_H
 
 #include <list>
 #include <map>
@@ -103,4 +104,4 @@ public:
 };
 
 
-#endif /* DACRS_TXMEMPOOL_H */
+#endif /* HONGHUO_TXMEMPOOL_H */

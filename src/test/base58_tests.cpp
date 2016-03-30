@@ -263,7 +263,7 @@ BOOST_AUTO_TEST_CASE(base58_keys_invalid)
 {
     Array tests = read_json(std::string(json_tests::base58_keys_invalid, json_tests::base58_keys_invalid + sizeof(json_tests::base58_keys_invalid))); // Negative testcases
     std::vector<unsigned char> result;
-    CDacrsSecret secret;
+    CHonghuoSecret secret;
     CDacrsAddress addr;
 
     for (auto& tv : tests)

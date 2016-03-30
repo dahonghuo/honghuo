@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRS_COMPAT_ENDIAN_H
-#define _DACRS_COMPAT_ENDIAN_H
+#ifndef _HONGHUO_COMPAT_ENDIAN_H
+#define _HONGHUO_COMPAT_ENDIAN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include <stdint.h>
@@ -14,7 +14,7 @@
 #include "compat/byteswap.h"
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #if defined(WORDS_BIGENDIAN)
@@ -191,4 +191,4 @@ inline uint64_t le64toh(uint64_t little_endian_64bits)
 
 #endif // WORDS_BIGENDIAN
 
-#endif // _DACRS_COMPAT_ENDIAN_H
+#endif // _HONGHUO_COMPAT_ENDIAN_H

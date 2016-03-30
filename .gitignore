@@ -1,10 +1,10 @@
 *.tar.gz
 
 *.exe
-src/dacrs-d
-src/test/dacrs_test
-src/qt/test/test_bitcoin-qt
-src/ptest/dacrs_ptest
+src/honghuo
+src/test/honghuo_test
+src/qt/test/test_honghuocoin-qt
+src/ptest/honghuo_ptest
 
 Makefile.in
 aclocal.m4
@@ -12,9 +12,7 @@ autom4te.cache/
 config.log
 config.status
 configure
-autogen-dacrs-man.sh
-src/bitcoin-config.h
-src/bitcoin-config.h.in
+autogen-honghuo-man.sh
 src/build-aux/
 src/stamp-h1
 share/setup.nsi
@@ -83,8 +81,8 @@ qa/pull-tester/run-bitcoind-for-test.sh
 qa/pull-tester/build-tests.sh
 
 !src/leveldb*/Makefile
-/src/dacrs-config.h
-/src/dacrs-config.h.in
+/src/honghuo-config.h
+/src/honghuo-config.h.in
 /src/build-aux/config.guess
 /src/build-aux/config.sub
 /src/build-aux/depcomp

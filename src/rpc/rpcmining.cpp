@@ -186,13 +186,13 @@ Value setgenerate(const Array& params, bool fHelp)
     }
     Object obj;
 	if(fGenerate == false){
-		GenerateDacrsBlock(false, pwalletMain, 1);
+		GenerateHonghuoBlock(false, pwalletMain, 1);
 
 	    obj.push_back(Pair("msg","stoping  mining"));
 		 return obj;
 	}
 
-	GenerateDacrsBlock(true, pwalletMain, nGenProcLimit);//跑完之后需要退出
+	GenerateHonghuoBlock(true, pwalletMain, nGenProcLimit);//跑完之后需要退出
 	obj.push_back(Pair("msg","in  mining"));
 	return obj;
 
@@ -249,7 +249,7 @@ Value submitblock(const Array& params, bool fHelp)
             "submitblock \"hexdata\" ( \"jsonparametersobject\" )\n"
             "\nAttempts to submit new block to network.\n"
             "The 'jsonparametersobject' parameter is currently ignored.\n"
-            "See https://en.Dacrs.it/wiki/BIP_0022 for full specification.\n"
+            "See https://en.bitcoin.it/wiki/BIP_0022 for full specification.\n"
 
             "\nArguments\n"
             "1. \"hexdata\"    (string, required) the hex-encoded block data to submit\n"

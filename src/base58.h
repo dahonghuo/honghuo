@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,8 +12,8 @@
 // - E-mail usually won't line-break if there's no punctuation to break at.
 // - Double-clicking selects the whole number as one word if it's all alphanumeric.
 //
-#ifndef DACRS_BASE58_H
-#define DACRS_BASE58_H
+#ifndef HONGHUO_BASE58_H
+#define HONGHUO_BASE58_H
 
 #include "chainparams.h"
 #include "key.h"
@@ -91,22 +92,22 @@ public:
     bool operator> (const CBase58Data& b58) const { return CompareTo(b58) >  0; }
 };
 
-/** base58-encoded Dacrs addresses.
+/** base58-encoded Honghuo addresses.
  * Public-key-hash-addresses have version 0 (or 111 testnet).
  * The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.
  * Script-hash-addresses have version 5 (or 196 testnet).
  * The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
  */
-class CDacrsAddress : public CBase58Data {
+class CHonghuoAddress : public CBase58Data {
 public:
     bool Set(const CKeyID &id);
     bool Set(const CTxDestination &dest);
     bool IsValid() const;
 
-    CDacrsAddress() {}
-    CDacrsAddress(const CTxDestination &dest) { Set(dest); }
-    CDacrsAddress(const string& strAddress) { SetString(strAddress); }
-    CDacrsAddress(const char* pszAddress) { SetString(pszAddress); }
+    CHonghuoAddress() {}
+    CHonghuoAddress(const CTxDestination &dest) { Set(dest); }
+    CHonghuoAddress(const string& strAddress) { SetString(strAddress); }
+    CHonghuoAddress(const char* pszAddress) { SetString(pszAddress); }
 
     CTxDestination Get() const;
     bool GetKeyID(CKeyID &keyID) const;
@@ -117,7 +118,7 @@ public:
 /**
  * A base58-encoded secret key
  */
-class CDacrsSecret : public CBase58Data
+class CHonghuoSecret : public CBase58Data
 {
 public:
     void SetKey(const CKey& vchSecret);
@@ -126,11 +127,11 @@ public:
     bool SetString(const char* pszSecret);
     bool SetString(const string& strSecret);
 
-    CDacrsSecret(const CKey& vchSecret) { SetKey(vchSecret); }
-    CDacrsSecret() {}
+    CHonghuoSecret(const CKey& vchSecret) { SetKey(vchSecret); }
+    CHonghuoSecret() {}
 };
 
-template<typename K, int Size, CBaseParams::Base58Type Type> class CDacrsExtKeyBase : public CBase58Data
+template<typename K, int Size, CBaseParams::Base58Type Type> class CHonghuoExtKeyBase : public CBase58Data
 {
 public:
     void SetKey(const K &key) {
@@ -145,14 +146,14 @@ public:
         return ret;
     }
 
-    CDacrsExtKeyBase(const K &key) {
+    CHonghuoExtKeyBase(const K &key) {
         SetKey(key);
     }
 
-    CDacrsExtKeyBase() {}
+    CHonghuoExtKeyBase() {}
 };
 
-typedef CDacrsExtKeyBase<CExtKey, 74, CBaseParams::EXT_SECRET_KEY> CDacrsExtKey;
-typedef CDacrsExtKeyBase<CExtPubKey, 74, CBaseParams::EXT_PUBLIC_KEY> CDacrsExtPubKey;
+typedef CHonghuoExtKeyBase<CExtKey, 74, CBaseParams::EXT_SECRET_KEY> CHonghuoExtKey;
+typedef CHonghuoExtKeyBase<CExtPubKey, 74, CBaseParams::EXT_PUBLIC_KEY> CHonghuoExtPubKey;
 
-#endif // DACRS_BASE58_H
+#endif // HONGHUO_BASE58_H

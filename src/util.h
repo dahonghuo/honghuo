@@ -1,13 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The DACRS developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_UTIL_H
-#define DACRS_UTIL_H
+#ifndef HONGHUO_UTIL_H
+#define HONGHUO_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include "./compat/compat.h"

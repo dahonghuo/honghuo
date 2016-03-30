@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,7 +38,7 @@ using namespace std;
 using namespace boost;
 
 #if defined(NDEBUG)
-# error "Dacrs cannot be compiled without assertions."
+# error "Honghuo cannot be compiled without assertions."
 #endif
 
 //
@@ -81,7 +82,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 //CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Dacrs Signed Message:\n";
+const string strMessageMagic = "Honghuo Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -594,12 +595,11 @@ bool CheckTransaction(CBaseTransaction *ptx, CValidationState &state, CAccountVi
 		return true;
 
 	// check version
-	if (ptx->nValidHeight > nUpdateTxVersion2Height) {
-		if (ptx->nVersion != nTxVersion2) {
-			return state.DoS(100,
-					ERRORMSG("CheckTransaction() : CheckTransction,tx version is not equal current version, (tx version %d: vs current %d)",
-							ptx->nVersion, nTxVersion2));
-		}
+
+	if (ptx->nVersion != nTxVersion2) {
+		return state.DoS(100,
+				ERRORMSG("CheckTransaction() : CheckTransction,tx version is not equal current version, (tx version %d: vs current %d)",
+						ptx->nVersion, nTxVersion2));
 	}
 
 	// Size limits
@@ -984,7 +984,7 @@ bool static PruneOrphanBlocks(int nHeight)
 int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
     int64_t nSubsidy = 50 * COIN;
-    int halvings = nHeight / SysCfg().SubsidyHalvingInterval();
+    int halvings = nHeight / SysCfg().GetSubsidyHalvingInterval();
 
     // Force block reward to zero when right shift is undefined.
     if (halvings >= 64)
@@ -1094,35 +1094,22 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 	int64_t nTargetSpacing = SysCfg().GetTargetSpacing();  //nStakeTargetSpacing;
 	int64_t nInterval = SysCfg().GetTargetTimespan() / nTargetSpacing;
 
-	if(pindexLast->nHeight > 85000) {
-		arith_uint256 bnNew;
-		bnNew.SetCompact(pindexPrev->nBits);
-		int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
-		int64_t nTotalSpacing = ((nInterval - 1) * nTargetSpacing + nActualSpacing + nActualSpacing);
-		if(nTotalSpacing < 0) {
-			return bnNew.GetCompact();
-		}
-		bnNew *= nTotalSpacing;
-		bnNew /= ((nInterval + 1) * nTargetSpacing);
-		if (bnNew > SysCfg().ProofOfWorkLimit()) {
-			LogPrint("INFO", "bnNew:%s\n", bnNew.GetHex());
-			bnNew = SysCfg().ProofOfWorkLimit();
-		}
-//		LogPrint("INFO", "bnNew=%s difficulty=%.8lf\n", bnNew.GetHex(), CaculateDifficulty(bnNew.GetCompact()));
-		return bnNew.GetCompact();
-	}else {
-		arith_uint256 bnNew;
-		bnNew.SetCompact(pindexPrev->nBits);
-		int64_t nAverageSpacing = GetAverageSpaceTime(pindexLast, nInterval);
-		bnNew *= ((nInterval - 1) * nTargetSpacing + nAverageSpacing + nAverageSpacing);
-		bnNew /= ((nInterval + 1) * nTargetSpacing);
-		if (bnNew > SysCfg().ProofOfWorkLimit() || bnNew < 0) {
-			LogPrint("INFO", "bnNew:%s\n", bnNew.GetHex());
-			bnNew = SysCfg().ProofOfWorkLimit();
-		}
-//		LogPrint("INFO", "bnNew=%s difficulty=%.8lf\n", bnNew.GetHex(), CaculateDifficulty(bnNew.GetCompact()));
+	arith_uint256 bnNew;
+	bnNew.SetCompact(pindexPrev->nBits);
+	int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
+	int64_t nTotalSpacing = ((nInterval - 1) * nTargetSpacing + nActualSpacing + nActualSpacing);
+	if(nTotalSpacing < 0) {
 		return bnNew.GetCompact();
 	}
+	bnNew *= nTotalSpacing;
+	bnNew /= ((nInterval + 1) * nTargetSpacing);
+	if (bnNew > SysCfg().ProofOfWorkLimit()) {
+		LogPrint("INFO", "bnNew:%s\n", bnNew.GetHex());
+		bnNew = SysCfg().ProofOfWorkLimit();
+	}
+//		LogPrint("INFO", "bnNew=%s difficulty=%.8lf\n", bnNew.GetHex(), CaculateDifficulty(bnNew.GetCompact()));
+	return bnNew.GetCompact();
+
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
@@ -1568,7 +1555,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CAccountViewCache &vie
 	}
 
 	//校验reward
-	uint64_t llValidReward = block.GetFee() - block.GetFuel() + POS_REWARD;
+	uint64_t llValidReward = block.GetFee() - block.GetFuel() + GetBlockSubsidy(block.GetHeight());
 	if (pRewardTx->rewardValue != llValidReward) {
 		LogPrint("INFO", "block fee:%lld, block fuel:%lld\n", block.GetFee(), block.GetFuel());
 		return state.DoS(100,
@@ -2267,7 +2254,7 @@ bool CheckBlockProofWorkWithCoinDay(const CBlock& block, CBlockIndex *pPreBlockI
 
 		//校验利息是否正常
 		std::shared_ptr<CRewardTransaction> pRewardTx = dynamic_pointer_cast<CRewardTransaction>(block.vptx[0]);
-		uint64_t llValidReward = block.GetFee() - block.GetFuel() + POS_REWARD;
+		uint64_t llValidReward = block.GetFee() - block.GetFuel() + GetBlockSubsidy(block.GetHeight());
 		if(pRewardTx->rewardValue !=  llValidReward )
 				return state.DoS(100, ERRORMSG("CheckBlockProofWorkWithCoinDay() : coinbase pays too much (actual=%d vs limit=%d)",
 											pRewardTx->rewardValue, llValidReward),
@@ -2313,13 +2300,13 @@ bool CheckBlock(const CBlock& block, CValidationState& state, CAccountViewCache 
         return state.DoS(100, ERRORMSG("CheckBlock() : size limits failed"),
                          REJECT_INVALID, "bad-blk-length");
 
-    if((block.GetHeight() >= nUpdateBlockVersionHeight) && (block.GetVersion() != CBlockHeader::CURRENT_VERSION)) {
+    if(block.GetHash() != SysCfg().HashGenesisBlock() && block.GetVersion() != CBlockHeader::CURRENT_VERSION) {
     	return state.Invalid(ERRORMSG("CheckBlock() : block version must be set 3"),
     	                             REJECT_INVALID, "block-version-error");
     }
 
     // Check timestamp 12minutes limits
-    if (block.GetHeight() > nTwelveForwardLimits && block.GetBlockTime() > GetAdjustedTime() + 12 * 60)
+    if (block.GetBlockTime() > GetAdjustedTime() + 12 * 60)
         return state.Invalid(ERRORMSG("CheckBlock() : block timestamp too far in the future"),
                              REJECT_INVALID, "time-too-new");
 
@@ -2404,8 +2391,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp) {
 		if (pcheckpoint && nHeight < pcheckpoint->nHeight)
 			return state.DoS(100, ERRORMSG("AcceptBlock() : forked chain older than last checkpoint (height %d)", nHeight));
 
-		// Check proof of work, before height 35001 don't check proofwork, fixed CBigNum adjust difficult bug.
-		if(block.GetHeight() > nFixedDifficulty && block.GetBits() != GetNextWorkRequired(pindexPrev, &block))
+		if(block.GetBits() != GetNextWorkRequired(pindexPrev, &block))
 			return state.DoS(100, ERRORMSG("AcceptBlock() : incorrect proof of work actual vs need(%d vs %d)", block.GetBits(), GetNextWorkRequired(pindexPrev, &block)), REJECT_INVALID, "bad-diffbits");
 
 		//Check proof of pos tx
@@ -4748,4 +4734,22 @@ Value ListSetBlockIndexValid() {
 bool EraseBlockIndexFromSet(CBlockIndex *pIndex) {
 	AssertLockHeld(cs_main);
 	return setBlockIndexValid.erase(pIndex)>0;
+}
+
+
+uint64_t GetBlockSubsidy(int nHeight)
+{
+    int halvings = nHeight / SysCfg().GetSubsidyHalvingInterval();
+    // Force block reward to zero when right shift is undefined.
+    if (halvings >= 64)
+        return 0;
+
+    uint64_t nSubsidy = 200 * COIN;
+
+    // Subsidy is cut in half every 2,590,000 blocks which will occur approximately every 5 years.
+    nSubsidy >>= halvings;
+    if(nSubsidy < 25*COIN) {
+    	nSubsidy = 25*COIN;
+    }
+    return nSubsidy;
 }

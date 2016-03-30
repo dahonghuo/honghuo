@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -89,38 +90,38 @@ map<string, vector<string> > CBaseParams::m_mapMultiArgs;
 // testnet network
 //
 vector<string> intPubKey_mainNet = {
-		"0388a07c89727f9065703100e94c00ce82bda6987215a88abee65db9b37f52f9e0",
-		"03fdfda984690ff2b10f27ccc38b90634ca101a27621c1a9dcec7a2f33fa0282d6"
+		"0310b67015f3da33a250c8b13d4d62929a8f461d82554602dcafea8646eededb83",
+		"0323d31c961e16c5ef8a4ffecf0aa5de7c08a7698d4dc444153f5be9beb2059e41"
 };
 
 vector<string> initPubKey_testNet = { //
-		"0388a07c89727f9065703100e94c00ce82bda6987215a88abee65db9b37f52f9e0",
-		"0360328964121d4625ca827c3e111f99fb005d5b30455d2609ac0ac3bbe17df601"
+		"02e6505027f041a5fdb7525278af9b0dc923937dd3a1ccef54a46cf0c8de3f13b8",
+		"0316b1e536ea6a4a55574870788c84c35480c0490cb55740fdfcff1c5effccafea"
 };
 
 vector<string> initPubkey_regTest = {
-		"03d308757fc1f8efd69f2da329db560cd7d3cba951eb09786c375cf1709f9165ba",
-		"024126ccf4b5f6463a3f874f234b77d02e9f5c2057c6c382160dc17c7f9ba2b333",
-		"0221b571330617821e8c508416b90988e81e8dc8623576b8f6e942797e9f381111",
-		"02e5c2fbea1055139e3d46621ef49aede5eb3ca1629fc3520986c5aba203706e74",
-		"0295c3d0f4a913fd8dccf7a0782ae59fae282057169214a136b3722d5299248683",
-		"03a616686dd872e301eb317a1ff4b53530d69492e8a39f6468afbd018043623166",
-		"02ac35dabc82e297697e9774a2a3f9b1ddd5dc536da0c9bba7f5e95eb525aa4706",
-		"0324da799ffc36177c9d401a81b6a1b4d90e7553ac4165fb263bbb8b60940a2b1d",
-		"0311ca277a0f3880eefed349727cc954354c4e539b8128c79f18a87c6f2b979186",
-		"02be4a840cf29bcbf84e3b7a0243adff77a32b9d76083ff254c1110734ea6b5792",
-		"029bbfd75711ac071b361e133679d21c1cc6314a6c3fd71e91880956b91e640948",
+		"02560c6add9c1bb177a766555660904e6052e57eb9a23472d92403e0e8180e102b",
+		"02f463d5423d3798ca7e4c9888aad7fc18b5f40e8c6bd26e2c620bf9f1479cae98",
+		"02a6b1f1f62d5f5078f0f5585b30c5c9e565ed4f052824739930c0fc2c0e09e212",
+		"0341d09e7c50a1406d8d63200fbb51babd89d133a361060f80c36be9eab4467c14",
+		"02ce125943ac355374cf019fe5c27686df562fdde291cd2dfcd92ab0e473235e22",
+		"02986782dd87dd857176e1092d30e8460684dc1fd9eb11fd23385488d54bdb8426",
+		"0275200bf4e88724af5111c7c956d174270a76dbe94827dbf4584afe3c357dab3e",
+		"02a4087370f17771c25cffae7fdcd72a95f5d6a65e699ab50f4e90e175f86fa7a7",
+		"02c87a55039723554b01405940c99853bdc6bdfc46ced225f9f91a61c541db38f6",
+		"03dea07cf50a82ee03cc3ed71b24a34685e5662756b07d671f70a0161a2df5a600",
+		"038bb7205aa82121a895668204f093f2f0ddec2a7027977af52832d0e34e2762ff",
 
-		"02a3e7998d3f8dd6dedfc6bf06e46adf98041bf4ca8e9af103d62f85c6f0a0a9bf",
-		"024ee551da4a0ca765f21a2c9d33ad61826f36eba8912ad80e8d5bf75c397f3ee2",
-		"03e6cda0f68b8028a74bcbbde1a164a022dad8956eabaa61bd40935d06c6fb55a4",
-		"03ec7e8f2521cc5d88be7e603c35ba9d4ecda09abe8f96a28514956c16ac7d9019",
-		"03e7f41495038767d7eb522938de5bc4556ef2e1075432245b9fc0e348c0516baf",
-		"03a61b40def5330abbb9f7491b11d586283b5fd2fb2e5cd546b0265f21e9cf9356",
-		"025a1c65b72c72569559edf54491dcf45e7ed0299886ee3eaa3cf5d5765b5b606b",
-		"035a998c0adb99003c0552ed44ac3f46e80f542b2d26cb94dd3356027b1c844b99",
-		"03f61c32ccc409ce5b55844f7cd2b62c52a8fe3d790efbc0644140cda33547aa67",
-		"03ae28a4100145a4c354338c727a54800dc540069fa2f5fd5d4a1c80b4a35a1762"
+		"03b94cea2cea39f03254bc679ce368b293cf70245e1b4a3b0d1818a8136ab319ef",
+		"02ae43a2ef88414b1b1ab9a35493909930819512ef1f136bfbfc112d72ac404bc5",
+		"03bc72551eaff2090f892eae8a34b0c3857e1f375a94a6d6d01c547068fca2ae89",
+		"0207b9b3005236752cf287b7bfba82b0173f82361918fa0d61c3f76df174b21f17",
+		"0393848f4e1b6861cb569e76279cca0e1df121d3ae8ee16bc824209442d1485869",
+		"02af52880dace8ed9538bab40a7ab9fdfa5e87070575c70495f2c56ef9b732a536",
+		"032797a1e479c21d5296687844cf5e0b23e3bccc7fc698693afbd3f17cd88607a1",
+		"02104ec38c5305cbca08596113b3bb90bfd2bf907d42d823c463bbbc59e479984a",
+		"036fd8953b10c4fbd8380dede638b6fd1fd6b78d32b0f439b931968608b32093d6",
+		"025d4c4909576371d2d56bba46835d5f41455007a99ef89719b22e295f1e13141b"
 };
 unsigned int pnSeed[] = //
 		{0xa78a2879, 0xb5af0bc6, 0x2f4f4a70, 0x30e65cb6, 0x7ae82879, 0x680ec48b,  0x7F1E4A70, 0x8868D772, 0xCD382879, 0xD239397B, 0x51C41978, 0x73B4C48B, 0x73EF1A78};
@@ -134,43 +135,43 @@ public:
 // a large 4-byte int at any alignment.
 		pchMessageStart[0] = 0xff;
 		pchMessageStart[1] = 0xfe;
-		pchMessageStart[2] = 0x1d;
-		pchMessageStart[3] = 0x20;
-		vAlertPubKey =	ParseHex("02d99681b6287b3765dfbb930e6caa10d1f8ac19e02b88f52362ce6eb43c0ec71e");
-		nDefaultPort = 8668;
-		nRPCPort = 8669;
+		pchMessageStart[2] = 0x1C;
+		pchMessageStart[3] = 0x50;
+		vAlertPubKey =	ParseHex("03146e6f0d502bbd112bb5d8870834f8acb329a1a346968920d96399d10f658200");
+		nDefaultPort = 6668;
+		nRPCPort = 6669;
 		strDataDir = "main";
 		bnProofOfStakeLimit =~arith_uint256(0) >> 10;        //00 3f ff ff
-		nSubsidyHalvingInterval = 210000;
+		nSubsidyHalvingInterval = 2590000;
 
 		assert(CreateGenesisRewardTx(genesis.vptx, intPubKey_mainNet));
 		genesis.SetHashPrevBlock(uint256());
 		genesis.SetHashMerkleRoot(genesis.BuildMerkleTree());
 		genesis.SetHashPos(uint256());
 		genesis.SetVersion(1);
-		genesis.SetTime(1436538491);
+		genesis.SetTime(1458906662);
 		genesis.SetBits(0x1f3fffff);        //00 3f ff
 		genesis.SetNonce(888);
 		genesis.SetFuelRate(INIT_FUEL_RATES);
 		genesis.SetHeight(0);
 		genesis.ClearSignature();
 		hashGenesisBlock = genesis.GetHash();
-		publicKey = "02d99681b6287b3765dfbb930e6caa10d1f8ac19e02b88f52362ce6eb43c0ec71e";
+		publicKey = "03146e6f0d502bbd112bb5d8870834f8acb329a1a346968920d96399d10f658200";
 //		{
 //			cout << "main hashGenesisBlock:\r\n" << hashGenesisBlock.ToString() << endl;
-//			cout << "main hashMerkleRoot:\r\n" << genesis.hashMerkleRoot.ToString() << endl;
+//			cout << "main hashMerkleRoot:\r\n" << genesis.GetHashMerkleRoot().ToString() << endl;
 //		}
-		assert(hashGenesisBlock == uint256S("0xd9ffedf0475c7734e1ea1a7aa1a05361825e77869371962ee6a3ec515e2e2c3d"));
-		assert(genesis.GetHashMerkleRoot() == uint256S("0x362155f5bb005be0523c7247cf1b901bd6f3567d105bd5defca28d221c90d1ef"));
+		assert(hashGenesisBlock == uint256S("0x4f822175a56fcc9291c3bf1fc26b5c0f9e16fc445a51577083a82d3cb1de5c19"));
+		assert(genesis.GetHashMerkleRoot() == uint256S("0x0e706fffa5348d5e6384a6f08bd22641fdb665e3fe103538bfc285a1a2d64c34"));
 
 //      vSeeds.push_back(CDNSSeedData("soypay.org.cn", "seed_cn_0.dspay.org"));
 //      vSeeds.push_back(CDNSSeedData("soypay.org.us", "seed_us_0.dspay.org"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = {0x1f};
-		base58Prefixes[SCRIPT_ADDRESS] = {5};
-		base58Prefixes[SECRET_KEY] = {128};
-		base58Prefixes[EXT_PUBLIC_KEY] = {0x04,0x88,0xB2,0x1E};
-		base58Prefixes[EXT_SECRET_KEY] = {0x04,0x88,0xAD,0xE4};
+        base58Prefixes[PUBKEY_ADDRESS] = {0x29};
+		base58Prefixes[SCRIPT_ADDRESS] = {8};
+		base58Prefixes[SECRET_KEY] = {138};
+		base58Prefixes[EXT_PUBLIC_KEY] = {0x05,0x86,0xC3,0x3D};
+		base58Prefixes[EXT_SECRET_KEY] = {0x05,0x85,0xA4,0x4F};
 
 		// Convert the pnSeeds array into usable address objects.
 		for (unsigned int i = 0; i < ARRAYLEN(pnSeed); i++) {
@@ -224,16 +225,16 @@ public:
 		// The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 		// a large 4-byte int at any alignment.
         pchMessageStart[0] = 0xfe;
-        pchMessageStart[1] = 0x2d;
-        pchMessageStart[2] = 0x1c;
-        pchMessageStart[3] = 0x0d;
-		vAlertPubKey =	ParseHex("036e15523feb9e329b4fdf53c227fc89ea45a1a36342e7e38fad7fe6e3777243af");
-		nDefaultPort = 18668;
-		nRPCPort = 18669;
+        pchMessageStart[1] = 0x1d;
+        pchMessageStart[2] = 0xac;
+        pchMessageStart[3] = 0x20;
+		vAlertPubKey =	ParseHex("0393d16cb247643e713161e8ebeb5d61ca80f0b60db98bde0675cdaf23abb85e0a");
+		nDefaultPort = 16668;
+		nRPCPort = 16669;
 		strDataDir = "testnet";
-		publicKey = "036e15523feb9e329b4fdf53c227fc89ea45a1a36342e7e38fad7fe6e3777243af";
+		publicKey = "0393d16cb247643e713161e8ebeb5d61ca80f0b60db98bde0675cdaf23abb85e0a";
 		// Modify the testnet genesis block so the timestamp is valid for a later start.
-		genesis.SetTime(1436598023);
+		genesis.SetTime(1457904215);
 		genesis.SetNonce(888);
 		genesis.vptx.clear();
 		assert(CreateGenesisRewardTx(genesis.vptx, initPubKey_testNet));
@@ -245,17 +246,15 @@ public:
 //		{
 //			cout << "testnet hashGenesisBlock:\r\n" << hashGenesisBlock.ToString() << endl;
 //		}
-		assert(hashGenesisBlock == uint256S("0xc6f81a98e9de1ac7da65a8b2bbd937f1d49aaedc7f8f2f0517c13f099df1ed49"));
+		assert(hashGenesisBlock == uint256S("0x6957e70aa4b2fb2d1c64b74a933b52f8730eb2628d9a0669c8037482e3544058"));
 //		vSeeds.clear();
-//		vSeeds.push_back(CDNSSeedData("Dacrs.petertodd.org", "testnet-seed.Dacrs.petertodd.org"));
 //		vSeeds.push_back(CDNSSeedData("bluematt.me", "testnet-seed.bluematt.me"));
 
-//		base58Prefixes[PUBKEY_ADDRESS] = {111};
-		base58Prefixes[PUBKEY_ADDRESS] = {0x5b};
-		base58Prefixes[SCRIPT_ADDRESS] = {196};
-		base58Prefixes[SECRET_KEY]     = {239};
-		base58Prefixes[EXT_PUBLIC_KEY] = {0x04,0x35,0x87,0xCF};
-		base58Prefixes[EXT_SECRET_KEY] = {0x04,0x35,0x83,0x94};
+		base58Prefixes[PUBKEY_ADDRESS] = {100};
+		base58Prefixes[SCRIPT_ADDRESS] = {18};
+		base58Prefixes[SECRET_KEY]     = {108};
+		base58Prefixes[EXT_PUBLIC_KEY] = {0x05,0x85,0x88,0xAF};
+		base58Prefixes[EXT_SECRET_KEY] = {0x05,0x85,0x82,0xCA};
 	}
 	virtual Network NetworkID() const {return CBaseParams::TESTNET;}
 	virtual bool InitalConfig()
@@ -277,20 +276,20 @@ public:
 class CRegTestParams: public CTestNetParams {
 public:
 	CRegTestParams() {
-		pchMessageStart[0] = 0xfc;
-		pchMessageStart[1] = 0x1d;
-		pchMessageStart[2] = 0x2d;
-		pchMessageStart[3] = 0x3d;
-		nSubsidyHalvingInterval = 150;
+		pchMessageStart[0] = 0xf1;
+		pchMessageStart[1] = 0x1c;
+		pchMessageStart[2] = 0x3b;
+		pchMessageStart[3] = 0xc1;
+		nSubsidyHalvingInterval = 500;
 		bnProofOfStakeLimit = ~arith_uint256(0) >> 6;     //target:00000011 11111111 11111111
-		genesis.SetTime(1421808634);
+		genesis.SetTime(1457904215);
 		genesis.SetBits(0x2003ffff);
 		genesis.SetNonce(888);
 		genesis.vptx.clear();
 		assert(CreateGenesisRewardTx(genesis.vptx, initPubkey_regTest));
 		genesis.SetHashMerkleRoot(genesis.BuildMerkleTree());
 		hashGenesisBlock = genesis.GetHash();
-		nDefaultPort = 18666;
+		nDefaultPort = 16666;
 		nTargetSpacing = 20;
 		nTargetTimespan = 30 * 20;
 		strDataDir = "regtest";
@@ -301,7 +300,7 @@ public:
 //			cout << "regtest hashGenesisBlock:\r\n" << hashGenesisBlock.ToString() << endl;
 //			cout << "regtest hashMerkleRoot:\r\n" << genesis.hashMerkleRoot.ToString() << endl;
 //		}
-		assert(hashGenesisBlock == uint256S("0x18d876339c5014803507332d0ae509862b4da382253b7696605e58963592723f"));
+		assert(hashGenesisBlock == uint256S("0x93e4c22d45f4c1b2a73dda7d70e27f2c190cf598fa80685c1d8585ba39ebbf9a"));
 
 		vFixedSeeds.clear();
 		vSeeds.clear();  // Regtest mode doesn't have any DNS seeds.
@@ -538,7 +537,7 @@ bool CBaseParams::CreateGenesisRewardTx(vector<std::shared_ptr<CBaseTransaction>
 	for (int i = 0; i < length; ++i) {
 		int64_t money(0);
 		if( i > 0) {
-			money = 1000000000 * COIN;
+			money = 10000000000 * COIN;
 		}
 		shared_ptr<CRewardTransaction> pRewardTx = make_shared<CRewardTransaction>(ParseHex(vInitPubKey[i].c_str()), money, 0);
 		pRewardTx->nVersion = nTxVersion1;

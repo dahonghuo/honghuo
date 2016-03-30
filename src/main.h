@@ -1,13 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2014-2015 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DACRS_MAIN_H
-#define DACRS_MAIN_H
+#ifndef HONGHUO_MAIN_H
+#define HONGHUO_MAIN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "dacrs-config.h"
+#include "honghuo-config.h"
 #endif
 
 #include "bignum.h"
@@ -1092,7 +1093,7 @@ extern CScriptDBViewCache *pScriptDBTip;
 /** nSyncTipHight  */
 extern int g_nSyncTipHeight;
 
-extern std::tuple<bool, boost::thread*> RunDacrs(int argc, char* argv[]);
+extern std::tuple<bool, boost::thread*> RunHonghuo(int argc, char* argv[]);
 extern bool WriteBlockLog(bool falg, string suffix);
 //extern set<uint256> setTxHashCache;
 //extern map<uint256, set<uint256> > mapTxHashCacheByPrev;
@@ -1109,7 +1110,7 @@ struct CBlockTemplate
 
 bool EraseBlockIndexFromSet(CBlockIndex *pIndex);
 
-
+uint64_t GetBlockSubsidy(int nHeight);
 
 /** Used to relay blocks as header + vector<merkle branch>
  * to filtered nodes.

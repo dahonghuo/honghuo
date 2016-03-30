@@ -3,29 +3,26 @@ include Makefile.include
 AM_CPPFLAGS += -I$(builddir)
 
 noinst_LIBRARIES = \
-  libdacrs_server.a \
-  libdacrs_common.a \
-  libdacrs_cli.a
+  libhonghuo_server.a \
+  libhonghuo_common.a \
+  libhonghuo_cli.a
 if ENABLE_WALLET
-noinst_LIBRARIES += libdacrs_wallet.a
+noinst_LIBRARIES += libhonghuo_wallet.a
 endif
 
 bin_PROGRAMS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += dacrs-d
+  bin_PROGRAMS += honghuo
 endif
 
-if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += dacrs-cli
-endif
 
 SUBDIRS = . $(BUILD_QT) $(BUILD_P_TEST) $(BUILD_TEST)
 #DIST_SUBDIRS = . qt test
 DIST_SUBDIRS = . test ptest
 .PHONY: FORCE
 # bitcoin core #
-DACRS_CORE_H = \
+HONGHUO_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
@@ -111,7 +108,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 version.o: obj/build.h
 
-libdacrs_server_a_SOURCES = \
+libhonghuo_server_a_SOURCES = \
   tx.cpp \
   addrman.cpp \
   alert.cpp \
@@ -136,9 +133,9 @@ libdacrs_server_a_SOURCES = \
   $(VM_CPP) \
   $(VM_H) \
   $(JSON_H) \
-  $(DACRS_CORE_H)
+  $(HONGHUO_CORE_H)
 
-libdacrs_wallet_a_SOURCES = \
+libhonghuo_wallet_a_SOURCES = \
   wallet/db.cpp  \
   crypter.cpp \
   rpc/rpcdump.cpp \
@@ -147,9 +144,9 @@ libdacrs_wallet_a_SOURCES = \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
   rpc/rpctx.cpp \
-  $(DACRS_CORE_H)
+  $(HONGHUO_CORE_H)
 
-libdacrs_common_a_SOURCES = \
+libhonghuo_common_a_SOURCES = \
   base58.cpp \
   allocators.cpp \
   arith_uint256.cpp \
@@ -171,52 +168,42 @@ libdacrs_common_a_SOURCES = \
   json/json_spirit_reader.cpp \
   json/json_spirit_value.cpp \
   json/json_spirit_writer.cpp \
-  $(DACRS_CORE_H)
+  $(HONGHUO_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libdacrs_common_a_SOURCES += compat/glibc_compat.cpp
-libdacrs_common_a_SOURCES += compat/glibcxx_compat.cpp
+libhonghuo_common_a_SOURCES += compat/glibc_compat.cpp
+libhonghuo_common_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-libdacrs_cli_a_SOURCES = \
+libhonghuo_cli_a_SOURCES = \
   rpc/rpcclient.cpp \
-  $(DACRS_CORE_H)
+  $(HONGHUO_CORE_H)
 
-nodist_libdacrs_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
+nodist_libhonghuo_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
 #
 
-# bitcoind binary #
-dacrs_d_LDADD = \
-  libdacrs_server.a \
-  libdacrs_wallet.a \
-  libdacrs_cli.a \
-  libdacrs_common.a \
+# honghuo binary #
+honghuo_LDADD = \
+  libhonghuo_server.a \
+  libhonghuo_wallet.a \
+  libhonghuo_cli.a \
+  libhonghuo_common.a \
   $(LIBLEVELDB) \
   $(LIBMEMENV)
 #if ENABLE_WALLET
-#dacrs_d_LDADD += libdacrs_wallet.a
+#honghuo_LDADD += libhonghuo_wallet.a
 #endif
-dacrs_d_SOURCES = dacrsd.cpp
+honghuo_SOURCES = honghuod.cpp
 #
 
 if TARGET_WINDOWS
-dacrs_d_SOURCES += dacrsd-res.rc
+honghuo_SOURCES += honghuod-res.rc
 endif
 
 AM_CPPFLAGS += $(BDB_CPPFLAGS)
-dacrs_d_LDADD += $(BOOST_LIBS) $(BDB_LIBS)
+honghuo_LDADD += $(BOOST_LIBS) $(BDB_LIBS)
 
-# bitcoin-cli binary #
-dacrs_cli_LDADD = \
-  libdacrs_cli.a \
-  libdacrs_common.a \
-  $(BOOST_LIBS)
-dacrs_cli_SOURCES = dacrsd-cli.cpp
-#
 
-if TARGET_WINDOWS
-dacrs_cli_SOURCES += dacrs-cli-res.rc
-endif
 
 # NOTE: This dependency is not strictly necessary, but without it make may try to build both in parallel, which breaks the LevelDB build system in a race
 leveldb/libleveldb.a: leveldb/libmemenv.a
@@ -226,7 +213,7 @@ leveldb/%.a:
 	  CC="$(CC)" PLATFORM=$(TARGET_OS) AR="$(AR)" $(LEVELDB_TARGET_FLAGS) \
 	  OPT="$(CXXFLAGS) $(CPPFLAGS)"
 
-qt/bitcoinstrings.cpp: $(libdacrs_server_a_SOURCES) $(libdacrs_common_a_SOURCES) $(libdacrs_cli_a_SOURCES)
+qt/bitcoinstrings.cpp: $(libhonghuo_server_a_SOURCES) $(libhonghuo_common_a_SOURCES) $(libhonghuo_cli_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	@cd $(top_srcdir); XGETTEXT=$(XGETTEXT) share/qt/extract_strings_qt.py
 

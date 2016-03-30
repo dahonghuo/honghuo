@@ -1,10 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The DACRS developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRSRPC_SERVER_H_
-#define _DACRSRPC_SERVER_H_ 1
+#ifndef _HONGHUORPC_SERVER_H_
+#define _HONGHUORPC_SERVER_H_ 1
 
 #include "uint256.h"
 #include "rpcprotocol.h"
@@ -63,7 +64,7 @@ public:
 };
 
 /**
- * DACRS RPC command dispatcher.
+ * HONGHUO RPC command dispatcher.
  */
 class CRPCTable
 {
@@ -115,7 +116,7 @@ extern json_spirit::Value ping(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value addnode(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getaddednodeinfo(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getnettotals(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value getdacrsstate(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value gethonghuostate(const json_spirit::Array& params, bool fHelp);
 
 extern json_spirit::Value dumpprivkey(const json_spirit::Array& params, bool fHelp); // in rpcdump.cpp
 extern json_spirit::Value importprivkey(const json_spirit::Array& params, bool fHelp);

@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Dacrs developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,8 +21,8 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called Dacrs (http://www.Dacrs.org/),
- * which enables instant payments to anyone, anywhere in the world. Dacrs uses peer-to-peer technology to operate
+ * This is the developer documentation of the reference client for an experimental new digital currency called Dacrs (http://www.honghuobi.net/),
+ * which enables instant payments to anyone, anywhere in the world. Honghuo uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
  * The software is a community-driven open source project, released under the MIT license.
@@ -59,18 +60,18 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 		//
 		// Parameters
 		//
-		// If Qt is used, parameters/Dacrs.conf are parsed in qt/Dacrs.cpp's main()
+		// If Qt is used, parameters/honghuo.conf are parsed in qt/Honghuo.cpp's main()
 		CBaseParams::IntialParams(argc, argv);
 		SysCfg().InitalConfig();
 
 		if (SysCfg().IsArgCount("-?") || SysCfg().IsArgCount("--help")) {
 			// First part of help message is specific to Dacrsd / RPC client
-			std::string strUsage = _("Dacrs Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n\n"
-					+ _("Usage:") + "\n" + "  Dacrsd [options]                     " + _("Start Dacrs Core Daemon")
-					+ "\n" + _("Usage (deprecated, use Dacrs-cli):") + "\n"
-					+ "  Dacrsd [options] <command> [params]  " + _("Send command to Dacrs Core") + "\n"
-					+ "  Dacrsd [options] help                " + _("List commands") + "\n"
-					+ "  Dacrsd [options] help <command>      " + _("Get help for a command") + "\n";
+			std::string strUsage = _("Honghuo Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n\n"
+					+ _("Usage:") + "\n" + "  Dacrsd [options]                     " + _("Start Honghuo Core Daemon")
+					+ "\n" + _("Usage (deprecated, use Honghuo-cli):") + "\n"
+					+ "  honghuo [options] <command> [params]  " + _("Send command to Honghuo Core") + "\n"
+					+ "  honghuo [options] help                " + _("List commands") + "\n"
+					+ "  honghuo [options] help <command>      " + _("Get help for a command") + "\n";
 
 			strUsage += "\n" + HelpMessage(HMM_BITCOIND);
 			strUsage += "\n" + HelpMessageCli(false);
@@ -82,7 +83,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 		// Command-line RPC
 		bool fCommandLine = false;
 		for (int i = 1; i < argc; i++)
-			if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Dacrs:"))
+			if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Honghuo:"))
 				fCommandLine = true;
 
 		if (fCommandLine) {
@@ -93,7 +94,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 		fDaemon = SysCfg().GetBoolArg("-daemon", false);
 		if (fDaemon)
 		{
-			fprintf(stdout, "Dacrs server starting\n");
+			fprintf(stdout, "Honghuo server starting\n");
 
 			// Daemonize
 			pid_t pid = fork();
@@ -128,7 +129,7 @@ bool AppInit(int argc, char* argv[],boost::thread_group &threadGroup) {
 
 	return fRet;
 }
-std::tuple<bool, boost::thread*> RunDacrs(int argc, char* argv[])
+std::tuple<bool, boost::thread*> RunHonghuo(int argc, char* argv[])
 {
 	boost::thread* detectShutdownThread = NULL;
 	static boost::thread_group threadGroup;
@@ -158,7 +159,7 @@ std::tuple<bool, boost::thread*> RunDacrs(int argc, char* argv[])
 
 int main(int argc, char* argv[]) {
 
-	std::tuple<bool, boost::thread*> ret = RunDacrs(argc,argv);
+	std::tuple<bool, boost::thread*> ret = RunHonghuo(argc,argv);
 
 	boost::thread* detectShutdownThread  = std::get<1>(ret);
 

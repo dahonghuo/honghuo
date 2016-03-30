@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _DACRS_ADDRMAN
-#define _DACRS_ADDRMAN 1
+#ifndef _HONGHUO_ADDRMAN
+#define _HONGHUO_ADDRMAN 1
 
 #include "netbase.h"
 #include "protocol.h"

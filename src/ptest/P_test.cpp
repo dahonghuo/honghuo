@@ -52,15 +52,15 @@ struct TestingSetup {
 
 				}
 				#ifdef WIN32
-							strCurDir += "\\dacrs_test";
+							strCurDir += "\\HONGHUO_test";
 							string param = "-datadir=";
 							param += strCurDir;
-							const char* argv[] = { "D:\\cppwork\\soypay\\src\\dacrs-d.exe", param.c_str() };
+							const char* argv[] = { "D:\\cppwork\\honghuo\\src\\honghuo.exe", param.c_str() };
 				#else
-							strCurDir +="/dacrs_test";
+							strCurDir +="/HONGHUO_test";
 							string param = "-datadir=";
 							param +=strCurDir;
-							const char* argv[] = {"D:\\cppwork\\soypay\\src\\dacrs-d.exe", param.c_str()};
+							const char* argv[] = {"D:\\cppwork\\honghuo\\src\\honghuo.exe", param.c_str()};
 				#endif
 				CBaseParams::IntialParams(argc, argv);
 			}

@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Dacrs developers
+// Copyright (c) 2014-2015 The Honghuo developers
+// Copyright (c) 2016 The Honghuo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,7 +16,7 @@ extern CWallet* pwalletMain;
 extern void SetMinerStatus(bool bstatue );
 //////////////////////////////////////////////////////////////////////////////
 //
-// DacrsMiner
+// HonghuoMiner
 //
 
 //int static FormatHashBlocks(void* pbuffer, unsigned int len) {
@@ -86,66 +87,29 @@ int GetElementForBurn(CBlockIndex* pindex)
 	if (nBlock * 2 >= pindex->nHeight - 1) {
 		return INIT_FUEL_RATES;
 	} else {
-		int64_t nTotalFeePerKb(0);
-		int64_t nAverageFeePerKb1(0);
-		int64_t nAverageFeePerKb2(0);
 		int64_t nTotalStep(0);
 		int64_t nAverateStep(0);
 		CBlockIndex * pTemp = pindex;
-		if(pindex->nHeight<=nBurnRateForkHeight) {
-			if ((pindex->nHeight - 1) % nBlock == 0) {
-				for (int ii = 0; ii < nBlock; ii++) {
-					nTotalFeePerKb += int64_t(pTemp->dFeePerKb);
-					pTemp = pTemp->pprev;
-				}
-				if (pindex->nChainTx - pTemp->nChainTx < (unsigned int) 10 * nBlock) {
-					return pindex->nFuelRate;
-				}
-				uint64_t txNum = pTemp->nChainTx;
-				nAverageFeePerKb1 = nTotalFeePerKb / nBlock;
-				nTotalFeePerKb = 0;
-				for (int ii = 0; ii < nBlock; ii++) {
-					nTotalFeePerKb += int64_t(pTemp->dFeePerKb);
-					pTemp = pTemp->pprev;
-				}
-				nAverageFeePerKb2 = nTotalFeePerKb / nBlock;
-				if (txNum - pTemp->nChainTx < (unsigned int) 10 * nBlock) {
-					return pindex->nFuelRate;
-				}
-				if (0 == nAverageFeePerKb1 || 0 == nAverageFeePerKb2)
-					return pindex->nFuelRate;
-				else {
-					int newFuelRate = int(pindex->nFuelRate * (nAverageFeePerKb2 / nAverageFeePerKb1));
-					if (newFuelRate < MIN_FUEL_RATES)
-						newFuelRate = MIN_FUEL_RATES;
-					LogPrint("fuel", "preFuelRate=%d fuelRate=%d, nHeight=%d, nAveragerFeePerKb1=%lf, nAverageFeePerKb2=%lf\n", pindex->nFuelRate, newFuelRate, pindex->nHeight, nAverageFeePerKb1, nAverageFeePerKb2);
-					return newFuelRate;
-				}
-			}else {
-				return pindex->nFuelRate;
-			}
+		for (int ii = 0; ii < nBlock; ii++) {
+			nTotalStep += pTemp->nFuel / pTemp->nFuelRate * 100;
+			pTemp = pTemp->pprev;
 		}
-		else {
-			for (int ii = 0; ii < nBlock; ii++) {
-				nTotalStep += pTemp->nFuel / pTemp->nFuelRate * 100;
-				pTemp = pTemp->pprev;
-			}
-			nAverateStep = nTotalStep / nBlock;
-			int newFuelRate(0);
-			if (nAverateStep < MAX_BLOCK_RUN_STEP * 0.75) {
-				newFuelRate = pindex->nFuelRate * 0.9;
-			} else if (nAverateStep > MAX_BLOCK_RUN_STEP * 0.85) {
-				newFuelRate = pindex->nFuelRate * 1.1;
-			} else {
-				newFuelRate = pindex->nFuelRate;
-			}
-			if (newFuelRate < MIN_FUEL_RATES)
-				newFuelRate = MIN_FUEL_RATES;
-			LogPrint("fuel", "preFuelRate=%d fuelRate=%d, nHeight=%d\n", pindex->nFuelRate, newFuelRate, pindex->nHeight);
-			return newFuelRate;
+		nAverateStep = nTotalStep / nBlock;
+		int newFuelRate(0);
+		if (nAverateStep < MAX_BLOCK_RUN_STEP * 0.75) {
+			newFuelRate = pindex->nFuelRate * 0.9;
+		} else if (nAverateStep > MAX_BLOCK_RUN_STEP * 0.85) {
+			newFuelRate = pindex->nFuelRate * 1.1;
+		} else {
+			newFuelRate = pindex->nFuelRate;
 		}
-
+		if (newFuelRate < MIN_FUEL_RATES)
+			newFuelRate = MIN_FUEL_RATES;
+		LogPrint("fuel", "preFuelRate=%d fuelRate=%d, nHeight=%d\n", pindex->nFuelRate, newFuelRate, pindex->nHeight);
+		return newFuelRate;
 	}
+
+
 }
 
 // We want to sort transactions by priority and fee, so:
@@ -382,9 +346,6 @@ bool VerifyPosTx(CAccountViewCache &accView, const CBlock *pBlock, CTransactionD
 	CAccount account;
 	CRewardTransaction *prtx = (CRewardTransaction *) pBlock->vptx[0].get();
 	if (view.GetAccount(prtx->account, account)) {
-		if(pBlock->GetHeight() > nFreezeBlackAcctHeight && account.IsBlackAccount()) {
-			return ERRORMSG("Black Account mining\n");
-		}
 		if(!CheckSignScript(pBlock->SignatureHash(), pBlock->GetSignature(), account.PublicKey)) {
 			if (!CheckSignScript(pBlock->SignatureHash(), pBlock->GetSignature(), account.MinerPKey)) {
 //				LogPrint("ERROR", "block verify fail\r\n");
@@ -398,12 +359,12 @@ bool VerifyPosTx(CAccountViewCache &accView, const CBlock *pBlock, CTransactionD
 	}
 
 	//校验reward_tx 版本是否正确
-	if (pBlock->GetHeight() > nUpdateTxVersion2Height) {
-		if (prtx->nVersion != nTxVersion2) {
-			return ERRORMSG("CTransaction CheckTransction,tx version is not equal current version, (tx version %d: vs current %d)",
-					prtx->nVersion, nTxVersion2);
-		}
+
+	if (prtx->nVersion != nTxVersion2) {
+		return ERRORMSG("CTransaction CheckTransction,tx version is not equal current version, (tx version %d: vs current %d)",
+				prtx->nVersion, nTxVersion2);
 	}
+
 
 	if (bNeedRunTx) {
 		int64_t nTotalFuel(0);
@@ -611,7 +572,7 @@ CBlockTemplate* CreateNewBlock(CAccountViewCache &view, CTransactionDBCache &txC
 			LogPrint("INFO","CreateNewBlock(): total size %u\n", nBlockSize);
 
 			assert(nFees-nTotalFuel >= 0);
-			((CRewardTransaction*) pblock->vptx[0].get())->rewardValue = nFees - nTotalFuel + POS_REWARD;
+			((CRewardTransaction*) pblock->vptx[0].get())->rewardValue = nFees - nTotalFuel + GetBlockSubsidy(pIndexPrev->nHeight + 1);
 
 			// Fill in header
 			pblock->SetHashPrevBlock(pIndexPrev->GetBlockHash());
@@ -641,7 +602,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet) {
 	{
 		LOCK(cs_main);
 		if (pblock->GetHashPrevBlock() != chainActive.Tip()->GetBlockHash())
-			return ERRORMSG("DacrsMiner : generated block is stale");
+			return ERRORMSG("HonghuoMiner : generated block is stale");
 
 		// Remove key from key pool
 	//	reservekey.KeepKey();
@@ -655,7 +616,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet) {
 		// Process this block the same as if we had received it from another node
 		CValidationState state;
 		if (!ProcessBlock(state, NULL, pblock))
-			return ERRORMSG("DacrsMiner : ProcessBlock, block not accepted");
+			return ERRORMSG("HonghuoMiner : ProcessBlock, block not accepted");
 	}
 
 	return true;
@@ -716,11 +677,11 @@ bool static MiningBlock(CBlock *pblock,CWallet *pwallet,CBlockIndex* pindexPrev,
 	return false;
 }
 
-void static DacrsMiner(CWallet *pwallet,int targetConter) {
+void static HonghuoMiner(CWallet *pwallet,int targetConter) {
 	LogPrint("INFO","Miner started\n");
 
 	SetThreadPriority(THREAD_PRIORITY_LOWEST);
-	RenameThread("Dacrs-miner");
+	RenameThread("Honghuo-miner");
 
 	auto CheckIsHaveMinerKey = [&]() {
 		    LOCK2(cs_main, pwalletMain->cs_wallet);
@@ -732,7 +693,7 @@ void static DacrsMiner(CWallet *pwallet,int targetConter) {
 
 
 	if (!CheckIsHaveMinerKey()) {
-			LogPrint("INFO", "DacrsMiner  terminated\n");
+			LogPrint("INFO", "HonghuoMiner  terminated\n");
 			ERRORMSG("ERROR:%s ", "no key for minering\n");
             return ;
 		}
@@ -780,7 +741,7 @@ void static DacrsMiner(CWallet *pwallet,int targetConter) {
 				}	
 		}
 	} catch (...) {
-		LogPrint("INFO","DacrsMiner  terminated\n");
+		LogPrint("INFO","HonghuoMiner  terminated\n");
     	SetMinerStatus(false);
 		throw;
 	}
@@ -830,7 +791,7 @@ uint256 CreateBlockWithAppointedAddr(CKeyID const &keyID)
 	return uint256();
 }
 
-void GenerateDacrsBlock(bool fGenerate, CWallet* pwallet, int targetHigh) {
+void GenerateHonghuoBlock(bool fGenerate, CWallet* pwallet, int targetHigh) {
 	static boost::thread_group* minerThreads = NULL;
 
 	if (minerThreads != NULL) {
@@ -850,7 +811,7 @@ void GenerateDacrsBlock(bool fGenerate, CWallet* pwallet, int targetHigh) {
 		return;
 	//in pos system one thread is enough  marked by ranger.shi
 	minerThreads = new boost::thread_group();
-	minerThreads->create_thread(boost::bind(&DacrsMiner, pwallet,targetHigh));
+	minerThreads->create_thread(boost::bind(&HonghuoMiner, pwallet,targetHigh));
 
 //	minerThreads->join_all();
 }
