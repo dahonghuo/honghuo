@@ -279,7 +279,7 @@ bool CHonghuoAddress::GetKeyID(CKeyID &keyID) const {
 	return false;
 }
 
-//bool CDacrsAddress::GetRegID(CRegID &Regid) const {
+//bool CHonghuoAddress::GetRegID(CRegID &Regid) const {
 //
 ////	vector<unsigned char> vid;
 ////	vid.push_back(CBaseParams::ACC_ADDRESS);

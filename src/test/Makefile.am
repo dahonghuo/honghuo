@@ -2,7 +2,7 @@ include $(top_srcdir)/src/Makefile.include
 
 AM_CPPFLAGS += -I$(top_srcdir)/src
 
-bin_PROGRAMS = HONGHUO_test
+bin_PROGRAMS = honghuo_test
 
 TESTS = test
 
@@ -23,15 +23,15 @@ RAW_TEST_FILES = data/alertTests.raw.h
 #BUILT_SOURCES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
 # test_dspay binary #
-HONGHUO_test_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
-HONGHUO_test_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_WALLET) $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBLEVELDB) $(LIBMEMENV) \
+honghuo_test_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
+honghuo_test_LDADD = $(LIBBITCOIN_SERVER) $(LIBBITCOIN_WALLET) $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 #if ENABLE_WALLET
 #HONGHUO_test_LDADD += $(LIBBITCOIN_WALLET)
 #endif
-HONGHUO_test_LDADD += $(BDB_LIBS)
+honghuo_test_LDADD += $(BDB_LIBS)
 
-HONGHUO_test_SOURCES = \
+honghuo_test_SOURCES = \
   allocator_tests.cpp \
   base32_tests.cpp \
   base58_tests.cpp \

@@ -694,7 +694,7 @@ Value sign(const Array& params, bool fHelp) {
 //	string strParam = params[0].get_str();
 //	CAccount aAccount;
 //	if (strParam.length() != 12) {
-//		CDacrsAddress address(params[0].get_str());
+//		CHonghuoAddress address(params[0].get_str());
 //		CKeyID keyid;
 //		if (!address.GetKeyID(keyid))
 //			throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Honghuo address");

@@ -2,13 +2,13 @@ include $(top_srcdir)/src/Makefile.include
 
 AM_CPPFLAGS += -I$(top_srcdir)/src
 
-bin_PROGRAMS = HONGHUO_ptest
+bin_PROGRAMS = honghuo_ptest
 
 TESTS = test
 
 # test_bitcoin binary #
-HONGHUO_ptest_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
-HONGHUO_ptest_LDADD = $(LIBBITCOIN_SERVER) \
+honghuo_ptest_CPPFLAGS = $(AM_CPPFLAGS) $(TESTDEFS)
+honghuo_ptest_LDADD = $(LIBBITCOIN_SERVER) \
                $(LIBBITCOIN_WALLET)   \
 			   $(LIBBITCOIN_CLI) \
 			   $(LIBBITCOIN_COMMON) \
@@ -19,9 +19,9 @@ HONGHUO_ptest_LDADD = $(LIBBITCOIN_SERVER) \
 #if ENABLE_WALLET
 #HONGHUO_ptest_LDADD += $(LIBBITCOIN_WALLET)
 #endif
-HONGHUO_ptest_LDADD += $(BDB_LIBS)
+honghuo_ptest_LDADD += $(BDB_LIBS)
 
-HONGHUO_ptest_SOURCES = \
+honghuo_ptest_SOURCES = \
   P_test.cpp \
   Main_tests.cpp \
   UpdateAccount_tests.cpp \

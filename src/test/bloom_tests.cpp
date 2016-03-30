@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(bloom_create_insert_key)
 		return ;
 	}
 	string strSecret = string("5Kg1gnAjaLfKiwhhPpGS3QfRg2m6awQvaj98JCZBZQ5SuS2F15C");
-	CDacrsSecret vchSecret;
+	CHonghuoSecret vchSecret;
 	BOOST_CHECK(vchSecret.SetString(strSecret));
 
 	CKey key = vchSecret.GetKey();
