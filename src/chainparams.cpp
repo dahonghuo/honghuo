@@ -26,69 +26,6 @@ map<string, vector<string> > CBaseParams::m_mapMultiArgs;
 
 
 
-//	{
-//        "addr" : "dsjkLDFfhenmx2JkFMdtJ22TYDvSGgmJem",
-//        "RegID" : "0-9",
-//        "RegID2" : "000000000900"
-//    },
-//    {
-//        "addr" : "dsGb9GyDGYnnHdjSvRfYbj9ox2zPbtgtpo",
-//        "RegID" : "0-5",
-//        "RegID2" : "000000000500"
-//    },
-//    {
-//        "addr" : "dejEcGCsBkwsZaiUH1hgMapjbJqPdPNV9U",
-//        "RegID" : "0-3",
-//        "RegID2" : "000000000300"
-//    },
-//    {
-//        "addr" : "e21rEzVwkPFQYfgxcg7xLp7DKeYrW4Fpoz",
-//        "RegID" : "0-8",
-//        "RegID2" : "000000000800"
-//    },
-//    {
-//        "addr" : "dd936HZcwj9dQkefHPqZpxzUuKZZ2QEsbN",
-//        "RegID" : "0-7",
-//        "RegID2" : "000000000700"
-//    },
-//    {
-//        "addr" : "dkoEsWuW3aoKaGduFbmjVDbvhmjxFnSbyL",
-//        "RegID" : "0-4",
-//        "RegID2" : "000000000400"
-//    },
-//    {
-//        "addr" : "ddEaChh3846J6xLkeyNaXwo6tMMZdHUTx6",
-//        "RegID" : " ",
-//        "RegID2" : "000000000000"
-//    },
-//    {
-//        "addr" : "dggsWmQ7jH46dgtA5dEZ9bhFSAK1LASALw",
-//        "RegID" : "0-1",
-//        "RegID2" : "000000000100"
-//    },
-//    {
-//        "addr" : "dps9hqUmBAVGVg7ijLGPcD9CJz9HHiTw6H",
-//        "RegID" : "0-10",
-//        "RegID2" : "000000000a00"
-//    },
-//    {
-//        "addr" : "dkJwhBs2P2SjbQWt5Bz6vzjqUhXTymvsGr",
-//        "RegID" : " ",
-//        "RegID2" : "000000000000"
-//    },
-//    {
-//        "addr" : "doym966kgNUKr2M9P7CmjJeZdddqvoU5RZ",
-//        "RegID" : "0-6",
-//        "RegID2" : "000000000600"
-//    },
-//    {
-//        "addr" : "dtKsuK9HUvLLHtBQL8Psk5fUnTLTFC83GS",
-//        "RegID" : "0-2",
-//        "RegID2" : "000000000200"
-//    }
-//
-// testnet network
-//
 vector<string> intPubKey_mainNet = {
 		"0310b67015f3da33a250c8b13d4d62929a8f461d82554602dcafea8646eededb83",
 		"0323d31c961e16c5ef8a4ffecf0aa5de7c08a7698d4dc444153f5be9beb2059e41"
@@ -124,7 +61,7 @@ vector<string> initPubkey_regTest = {
 		"025d4c4909576371d2d56bba46835d5f41455007a99ef89719b22e295f1e13141b"
 };
 unsigned int pnSeed[] = //
-		{0xa78a2879, 0xb5af0bc6, 0x2f4f4a70, 0x30e65cb6, 0x7ae82879, 0x680ec48b,  0x7F1E4A70, 0x8868D772, 0xCD382879, 0xD239397B, 0x51C41978, 0x73B4C48B, 0x73EF1A78};
+		{0x8c841a78, 0x0a513778, 0x7fd3c865, 0x5d092a79, 0x55cc602a, 0x9a944c78};
 
 class CMainParams: public CBaseParams {
 public:
@@ -300,7 +237,7 @@ public:
 //			cout << "regtest hashGenesisBlock:\r\n" << hashGenesisBlock.ToString() << endl;
 //			cout << "regtest hashMerkleRoot:\r\n" << genesis.hashMerkleRoot.ToString() << endl;
 //		}
-		assert(hashGenesisBlock == uint256S("0x93e4c22d45f4c1b2a73dda7d70e27f2c190cf598fa80685c1d8585ba39ebbf9a"));
+		assert(hashGenesisBlock == uint256S("0x7a54dd0298bbdc002f0f1664a6629e7b8f4a36c3c2b1b9be2755199a2c379452"));
 
 		vFixedSeeds.clear();
 		vSeeds.clear();  // Regtest mode doesn't have any DNS seeds.
@@ -536,10 +473,15 @@ bool CBaseParams::CreateGenesisRewardTx(vector<std::shared_ptr<CBaseTransaction>
 	int length = vInitPubKey.size();
 	for (int i = 0; i < length; ++i) {
 		int64_t money(0);
-		if( i > 0) {
-			money = 10000000000 * COIN;
+		if (i > 0) {
+			if (length > 15) {   //regtest net
+				money = 1000000000 * COIN;
+			} else {
+				money = 10000000000 * COIN;
+			}
 		}
-		shared_ptr<CRewardTransaction> pRewardTx = make_shared<CRewardTransaction>(ParseHex(vInitPubKey[i].c_str()), money, 0);
+		shared_ptr<CRewardTransaction> pRewardTx = make_shared<CRewardTransaction>(ParseHex(vInitPubKey[i].c_str()),
+				money, 0);
 		pRewardTx->nVersion = nTxVersion1;
 		if (pRewardTx.get())
 			vRewardTx.push_back(pRewardTx);
