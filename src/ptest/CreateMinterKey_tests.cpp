@@ -66,9 +66,9 @@ bool CCreateMinerkey::SelectAccounts() {
 
 string CCreateMinerkey::GetOneAccount() {
 	for(auto &item : vAccount) {
-		if(GetBalance(item) > 1000000 * COIN) {
+		if(GetBalance(item) > 10000000 * COIN) {
 			mapSendValue[item] += sendMoney;
-			if(mapSendValue[item] > 8000000 * COIN)
+			if(mapSendValue[item] > 80000000 * COIN)
 				continue;
 			return item;
 		}

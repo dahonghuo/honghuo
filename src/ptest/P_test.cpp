@@ -52,12 +52,12 @@ struct TestingSetup {
 
 				}
 				#ifdef WIN32
-							strCurDir += "\\HONGHUO_test";
+							strCurDir += "\\honghuo_test";
 							string param = "-datadir=";
 							param += strCurDir;
 							const char* argv[] = { "D:\\cppwork\\honghuo\\src\\honghuo.exe", param.c_str() };
 				#else
-							strCurDir +="/HONGHUO_test";
+							strCurDir +="/honghuo_test";
 							string param = "-datadir=";
 							param +=strCurDir;
 							const char* argv[] = {"D:\\cppwork\\honghuo\\src\\honghuo.exe", param.c_str()};

@@ -56,12 +56,12 @@ struct TestingSetup {
 
 			}
 #ifdef WIN32
-			strCurDir += "\\HONGHUO_test";
+			strCurDir += "\\honghuo_test";
 			param2 = "-datadir=";
 			param2 += strCurDir;
 
 #else
-			strCurDir +="/HONGHUO_test";
+			strCurDir +="/honghuo_test";
 			param2 = "-datadir=";
 			param2 +=strCurDir;
 #endif
