@@ -18,8 +18,9 @@ using namespace boost;
 using namespace json_spirit;
 
 //#define SEND_A    "DmtzzT99HYUGAV6ejkWTWXF8pcYXtkpU4g"
-#define SEND_A    "DmtzzT99HYUGAV6ejkWTWXF8pcYXtkpU4g"
-//#define SEND_A    "dtKsuK9HUvLLHtBQL8Psk5fUnTLTFC83GS"  // 0-20
+//#define SEND_A    "DmtzzT99HYUGAV6ejkWTWXF8pcYXtkpU4g"
+#define SEND_A    "dtKsuK9HUvLLHtBQL8Psk5fUnTLTFC83GS"  // 0-20  100001392001815000,
+                                                        //       100001391601814999
 
 class CIpoTest: public CycleTestBase {
 	int nNum;
