@@ -273,6 +273,7 @@ static const CRPCCommand vRPCCommands[] =
     { "encryptwallet",          &encryptwallet,          false,     false,      true },
     { "getaccountinfo",         &getaccountinfo,         true,      false,      true },
     { "getnewaddress",          &getnewaddress,          true,      false,      true },
+    { "getnewaddressv2",        &getnewaddressv2,        true,      false,      true },
     { "gettxdetail",            &gettxdetail,       	 true,      false,      true },
     { "listunconfirmedtx",      &listunconfirmedtx,      true,      false,      true },
     { "getwalletinfo",          &getwalletinfo,          true,      false,      true },
@@ -282,6 +283,8 @@ static const CRPCCommand vRPCCommands[] =
     { "importwallet",           &importwallet,           false,     false,      true },
     { "listaddr",               &listaddr,       	     true,      false,      true },
     { "listtx",                 &listtx,       	         true,      false,      true },
+    { "listtransactions",       &listtransactions,       true,      false,      true },
+    { "gettransaction",         &gettransaction,         true,      false,      true },
     { "registaccounttx",        &registaccounttx,      	 true,      false,      true },
 	{ "createcontracttx",       &createcontracttx,       true,      false,      true },
 	{ "registerapptx",       	&registerapptx,          true,      false,      true },
@@ -291,6 +294,7 @@ static const CRPCCommand vRPCCommands[] =
 	{ "walletpassphrase",       &walletpassphrase,       true,      false,      true },
 	{ "setgenerate",            &setgenerate,            true,      true,       false},
 	{ "listapp",                &listapp,                true,      false,      true },
+	{ "getappinfo",             &getappinfo,             true,      false,      true },
 	{ "generateblock",          &generateblock, 		 true,      true,       true },
 	{ "listtxcache",            &listtxcache,            true,      false,      true },
 	{ "getscriptdata",          &getscriptdata,          true,      false,      true },
@@ -299,7 +303,10 @@ static const CRPCCommand vRPCCommands[] =
 	{ "sendtoaddress",          &sendtoaddress,          false,     false,      true },
 	{ "sendtoaddresswithfee",   &sendtoaddresswithfee,   false,     false,      true },
     { "getbalance",             &getbalance,             false,     false,      true },
-
+    { "notionalpoolingbalance", &notionalpoolingbalance, false,     false,      true },
+    { "dispersebalance", 		&dispersebalance, 		 false,     false,      true },
+    { "notionalpoolingasset", 	&notionalpoolingasset, 	 false,     false,      true },
+    { "getassets", 				&getassets, 	 		 false,     false,      true },
     { "submittx",      			&submittx,       	 	 true,      false,      false},
 
     { "sigstr",    				&sigstr,    			 true,      false,      true },
@@ -321,7 +328,9 @@ static const CRPCCommand vRPCCommands[] =
     { "gethash",                &gethash,        		 true,      false,      true },
     { "getrawtx",               &getrawtx,        		 true,      false,      true },
 
-
+    { "getwithdrawcontent",     &getwithdrawcontent,     true,      false,      false },
+    { "getrechargecontent",     &getrechargecontent,     true,      false,      false },
+    { "gettransfercontent",     &gettransfercontent,     true,      false,      false },
 };
 
 CRPCTable::CRPCTable()

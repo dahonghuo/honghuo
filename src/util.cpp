@@ -486,6 +486,13 @@ vector<unsigned char> ParseHex(const string& str) {
 	return ParseHex(str.c_str());
 }
 
+string GetHexData(const char*pData,size_t nLen)
+{
+	vector<unsigned char> vTemp;
+	vTemp.assign(pData,pData +nLen);
+	return HexStr(vTemp);
+}
+
 static void InterpretNegativeSetting(string name, map<string, string>& mapSettingsRet) {
 	// interpret -nofoo as -foo=0 (and -nofoo=0 as -foo=1) as long as -foo not set
 	if (name.find("-no") == 0) {

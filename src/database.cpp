@@ -1672,3 +1672,22 @@ bool CScriptDBViewCache::SetScriptAcc(const CRegID& scriptId, const CAppUserAcco
 	vValue.insert(vValue.end(), ds.begin(), ds.end());
 	return SetData(scriptKey, vValue);
 }
+
+bool CScriptDBViewCache::EraseScriptAcc(const CRegID &scriptId,const vector<unsigned char> &vKey)
+{
+	vector<unsigned char> scriptKey = {'a','c','c','t'};
+	vector<unsigned char> vRegId = scriptId.GetVec6();
+	scriptKey.insert(scriptKey.end(), vRegId.begin(), vRegId.end());
+	scriptKey.push_back( '_');
+	scriptKey.insert(scriptKey.end(), vKey.begin(), vKey.end());
+	vector<unsigned char> vValue;
+
+	//LogPrint("vm","%s",HexStr(scriptKey));
+	if(!GetData(scriptKey, vValue))
+	{
+		LogPrint("vm", "%s\n", "777777777777777");
+		return false;
+	}
+
+	return EraseKey(scriptKey);
+}

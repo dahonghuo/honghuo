@@ -131,6 +131,7 @@ Array RPCConvertValues(const string &strMethod, const vector<string> &strParams)
     if (strMethod == "getnetworkhashps"       && n > 1) ConvertTo<int64_t>(params[1]);
     if (strMethod == "sendtoaddress"          && n == 2) ConvertTo<double>(params[1]);
     if (strMethod == "sendtoaddress"          && n == 3) ConvertTo<double>(params[2]);
+    if (strMethod == "sendtoaddressv2"        && n > 1) ConvertTo<double>(params[1]);
 	if (strMethod == "sendtoaddresswithfee" && n == 3) {
 		ConvertTo<double>(params[1]);
 		ConvertTo<double>(params[2]);
@@ -234,7 +235,22 @@ Array RPCConvertValues(const string &strMethod, const vector<string> &strParams)
     if (strMethod == "registerscripttxraw"          && n > 2)ConvertTo<bool>(params[2]);
     if (strMethod == "registerscripttxraw"          && n > 4) ConvertTo<int>(params[4]);
     if (strMethod == "gettxhashbyaddress"          && n > 1) ConvertTo<int>(params[1]);
+    if (strMethod == "listtransactions"           && n > 1) ConvertTo<int>(params[1]);
+    if (strMethod == "listtransactions"           && n > 2) ConvertTo<int>(params[2]);
+    if (strMethod == "listtx"          			   && n > 0) ConvertTo<int>(params[0]);
+    if (strMethod == "listtx"                      && n > 1) ConvertTo<int>(params[1]);
 
+
+    if (strMethod == "getwithdrawcontent"          && n == 1) ConvertTo<double>(params[0]);
+    if (strMethod == "getrechargecontent"          && n == 4)
+    {
+    	ConvertTo<double>(params[1]);
+    	ConvertTo<double>(params[2]);
+    	ConvertTo<double>(params[3]);
+    }
+	if (strMethod == "notionalpoolingbalance" && n > 1) ConvertTo<double>(params[1]);
+	if (strMethod == "dispersebalance"        && n > 1) ConvertTo<double>(params[1]);
+	if (strMethod == "notionalpoolingasset" && n > 2) ConvertTo<double>(params[2]);
     return params;
 }
 

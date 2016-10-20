@@ -166,7 +166,7 @@ public:
 
 	bool GetScriptAcc(const CRegID &scriptId,const vector<unsigned char> &vKey,CAppUserAccout& appAccOut);
 	bool SetScriptAcc(const CRegID &scriptId, const CAppUserAccout& appAccIn,CScriptDBOperLog &operlog);
-
+	bool EraseScriptAcc(const CRegID &scriptId,const vector<unsigned char> &vKey);
 
 	bool GetScript(const int nIndex, CRegID &scriptId, vector<unsigned char> &vValue);
 	bool SetScript(const CRegID &scriptId, const vector<unsigned char> &vValue);

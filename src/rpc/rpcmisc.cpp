@@ -226,6 +226,146 @@ Value getinfo(const Array& params, bool fHelp)
     return obj;
 }
 
+#pragma pack(1)
+typedef struct {
+	unsigned char systype;               //0xff
+	unsigned char type;            // 0x01 提现  02 充值  03 提现一定的金额
+	unsigned char typeaddr;            // 0x01 regid 0x02 base58
+	uint64_t     money;
+} APPACC;
+
+typedef struct {
+	unsigned char systype;
+	unsigned char type;
+	char address[35]; //  全部是地址
+	uint64_t money;               //  总金额 >= freemoney + freeMothmoney * (FREEZE_MONTH_NUM - 1)
+	uint64_t freemoney;           //  自由金额
+	uint64_t freeMothmoney;       //  每个月能领的金额(由冻结金额，转为自由金额)
+}IPO_USER;
+
+typedef struct {
+	unsigned char systype;
+	unsigned char type;
+	unsigned char address[35]; //  转账地址
+}TRAN_USER;
+
+typedef struct {
+	unsigned char systype;
+	unsigned char type;
+	unsigned char address[35]; //  转账地址
+	unsigned int outheight;		    //!< the transacion Timeout height
+	uint64_t mMoney;			        //!<The transfer amount
+	unsigned char FundTaglen;
+	unsigned char vFundTag[40];				//!< accountid
+}TRAN_USER_SOME;
+
+#pragma pack()
+
+
+Value getwithdrawcontent(const Array& params, bool fHelp)
+{
+	int size = params.size();
+	if (fHelp || params.size() != 1) {
+			string msg = "getwithdrawcontent ( money )\n"
+					"\nArguments:\n"
+					 "1.  money         (numeric, require) withdraw money\n"
+					 "\nExamples:\n"
+					+ HelpExampleCli("getwithdrawcontent", "1000")
+					+ "\nAs json rpc call\n"
+					+ HelpExampleRpc("getwithdrawcontent", "1000");
+			throw runtime_error(msg);
+	}
+	Object obj;
+	double fMoney = params[0].get_real();
+
+	APPACC accdata;
+	memset(&accdata,0,sizeof(APPACC));
+	accdata.systype = 0xff;
+	accdata.type = 0x01;  /// 0xff 表示提现 或者充值 0x01 提现 0x02 充值
+	accdata.typeaddr = 0x02;   /// 0x01是regid 0x02是base58地址
+	accdata.money = AmountToRawValue(fMoney);
+	string content =  GetHexData((const char*)&accdata,sizeof(APPACC));
+
+	obj.push_back(Pair("content", content));
+	return std::move(obj);
+}
+
+Value getrechargecontent(const Array& params, bool fHelp)
+{
+	int size = params.size();
+	if (fHelp || params.size() != 4) {
+			string msg = "getrechargecontent ( address, money, freemoney, freeMonthmoney )\n"
+					"\nArguments:\n"
+					"1.  address       (string, require) address of recharge\n"
+					"2.  money         (numeric, require) recharge total money\n"
+					"3.  freemoney     (numeric, require) free money\n"
+					"4.  freeMonthmoney     (numeric, require) freezed money per month\n"
+					 "\nExamples:\n"
+					+ HelpExampleCli("getrechargecontent", "hMT4timo5K5b4HVNXUbRK1ZanVSbCVrzL4 200 10 10")
+					+ "\nAs json rpc call\n"
+					+ HelpExampleRpc("getrechargecontent", "hMT4timo5K5b4HVNXUbRK1ZanVSbCVrzL4 200 10 10");
+			throw runtime_error(msg);
+	}
+	Object obj;
+
+	string addr = params[0].get_str();
+	int len = addr.length();
+	if(len != 34)
+	{
+		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid  address");
+	}
+
+	double fMoney = params[1].get_real();
+	double freemoney = params[2].get_real();
+	double freeMonthmoney = params[3].get_real();
+
+	IPO_USER user;
+	memset(&user,0,sizeof(IPO_USER));
+	user.systype = 0xff;
+	user.type = 0x02;
+
+	memcpy(user.address, addr.c_str(), 34); //  全部是地址
+	user.money = AmountToRawValue(fMoney);               //  总金额 >= freemoney + freeMothmoney * (FREEZE_MONTH_NUM - 1)
+	user.freemoney = AmountToRawValue(freemoney);           //  自由金额
+	user.freeMothmoney = AmountToRawValue(freeMonthmoney);
+
+	string content =  GetHexData((const char*)&user,sizeof(IPO_USER));
+
+	obj.push_back(Pair("content", content));
+	return std::move(obj);
+}
+
+Value gettransfercontent(const Array& params, bool fHelp)
+{
+	int size = params.size();
+	if (fHelp || params.size() != 1) {
+			string msg = "gettransfercontent ( address )\n"
+					"\nArguments:\n"
+					"1.  address       (string, require) address of transfer\n"
+					 "\nExamples:\n"
+					+ HelpExampleCli("gettransfercontent", "hMT4timo5K5b4HVNXUbRK1ZanVSbCVrzL4")
+					+ "\nAs json rpc call\n"
+					+ HelpExampleRpc("gettransfercontent", "hMT4timo5K5b4HVNXUbRK1ZanVSbCVrzL4");
+			throw runtime_error(msg);
+	}
+	Object obj;
+	string addr = params[0].get_str();
+	int len = addr.length();
+	if(len != 34)
+	{
+		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid  address");
+	}
+
+	TRAN_USER user;
+	memset(&user,0,sizeof(TRAN_USER));
+	user.systype = 0xff;
+	user.type = 0x03;
+	memcpy(user.address, addr.c_str(), 34);
+
+	string content =  GetHexData((const char*)&user,sizeof(TRAN_USER));
+	obj.push_back(Pair("content", content));
+	return std::move(obj);
+}
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
 {

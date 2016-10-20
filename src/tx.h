@@ -236,7 +236,7 @@ public:
 	virtual bool CheckTransction(CValidationState &state, CAccountViewCache &view, CScriptDBViewCache &scriptDB) = 0;
 
 	virtual uint64_t GetFuel(int nfuelRate);
-
+	virtual uint64_t GetValue() const = 0;
 	int GetFuelRate(CScriptDBViewCache &scriptDB);
 };
 
@@ -286,7 +286,7 @@ public:
 		READWRITE(VARINT(llFees));
 		READWRITE(signature);
 	)
-
+	uint64_t GetValue() const {return 0;}
 	uint64_t GetFee() const {
 		return llFees;
 	}
@@ -300,7 +300,7 @@ public:
 	uint256 SignatureHash() const;
 
 	std::shared_ptr<CBaseTransaction> GetNewInstance() {
-		return make_shared<CRegisterAccountTx>(this);
+		return std::make_shared<CRegisterAccountTx>(this);
 	}
 
 	bool GetAddress(set<CKeyID> &vAddr, CAccountViewCache &view, CScriptDBViewCache &scriptDB);
@@ -396,7 +396,7 @@ public:
 				desUserId = desId.GetUserId();
 			}
 	)
-
+	uint64_t GetValue() const {return llValues;}
 	uint256 GetHash() const;
 
 	uint64_t GetFee() const {
@@ -410,7 +410,7 @@ public:
 	uint256 SignatureHash() const;
 
 	std::shared_ptr<CBaseTransaction> GetNewInstance() {
-		return make_shared<CTransaction>(this);
+		return std::make_shared<CTransaction>(this);
 	}
 
 	string ToString(CAccountViewCache &view) const;
@@ -474,11 +474,11 @@ public:
 		READWRITE(VARINT(rewardValue));
 		READWRITE(VARINT(nHeight));
 	)
-
+	uint64_t GetValue() const {return rewardValue;}
 	uint256 GetHash() const;
 
 	std::shared_ptr<CBaseTransaction> GetNewInstance() {
-		return make_shared<CRewardTransaction>(this);
+		return std::make_shared<CRewardTransaction>(this);
 	}
 
 	uint256 SignatureHash() const;
@@ -539,11 +539,11 @@ public:
 		READWRITE(VARINT(llFees));
 		READWRITE(signature);
 	)
-
+	uint64_t GetValue() const {return 0;}
 	uint256 GetHash() const;
 
 	std::shared_ptr<CBaseTransaction> GetNewInstance() {
-		return make_shared<CRegisterAppTx>(this);
+		return std::make_shared<CRegisterAppTx>(this);
 	}
 
 	uint256 SignatureHash() const;
@@ -782,7 +782,7 @@ public:
 		return *this;
 	}
 	std::shared_ptr<CAccount> GetNewInstance() const{
-		return make_shared<CAccount>(*this);
+		return std::make_shared<CAccount>(*this);
 	}
 
 	bool IsMiner(int nCurHeight) {
@@ -906,23 +906,23 @@ void Unserialize(Stream& is, std::shared_ptr<CBaseTransaction> &pa, int nType, i
 	char nTxType;
 	is.read((char*) &(nTxType), sizeof(nTxType));
 	if (nTxType == REG_ACCT_TX) {
-		pa = make_shared<CRegisterAccountTx>();
+		pa = std::make_shared<CRegisterAccountTx>();
 		Unserialize(is, *((CRegisterAccountTx *) (pa.get())), nType, nVersion);
 	}
 	else if (nTxType == COMMON_TX) {
-		pa = make_shared<CTransaction>();
+		pa = std::make_shared<CTransaction>();
 		Unserialize(is, *((CTransaction *) (pa.get())), nType, nVersion);
 	}
 	else if (nTxType == CONTRACT_TX) {
-		pa = make_shared<CTransaction>();
+		pa = std::make_shared<CTransaction>();
 		Unserialize(is, *((CTransaction *) (pa.get())), nType, nVersion);
 	}
 	else if (nTxType == REWARD_TX) {
-		pa = make_shared<CRewardTransaction>();
+		pa = std::make_shared<CRewardTransaction>();
 		Unserialize(is, *((CRewardTransaction *) (pa.get())), nType, nVersion);
 	}
 	else if (nTxType == REG_APP_TX) {
-		pa = make_shared<CRegisterAppTx>();
+		pa = std::make_shared<CRegisterAppTx>();
 		Unserialize(is, *((CRegisterAppTx *) (pa.get())), nType, nVersion);
 	}
 	else {

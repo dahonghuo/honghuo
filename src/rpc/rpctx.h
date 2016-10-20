@@ -39,7 +39,7 @@ extern Value getaccountinfo(const Array& params, bool fHelp);
 
 extern Value disconnectblock(const Array& params, bool fHelp);
 extern Value listapp(const Array& params, bool fHelp);
-
+extern Value getappinfo(const Array& params, bool fHelp);
 
 extern Value getaddrbalance(const Array& params, bool fHelp);
 extern Value generateblock(const Array& params, bool fHelp);
@@ -62,4 +62,6 @@ extern Object TxToJSON(CBaseTransaction *pTx);
 extern Value gettotalcoin(const Array& params, bool fHelp);
 extern Value gettxhashbyaddress(const Array& params, bool fHelp);
 extern Value getrawtx(const Array& params, bool fHelp);
+extern Value listtransactions(const Array& params, bool fHelp);
+extern Value gettransaction(const Array& params, bool fHelp);
 #endif /* RPCTX_H_ */

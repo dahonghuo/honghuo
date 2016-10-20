@@ -267,6 +267,7 @@ inline string HexStr(const T& vch, bool fSpaces = false) {
 	return HexStr(vch.begin(), vch.end(), fSpaces);
 }
 
+string GetHexData(const char*pData,size_t nLen);
 template<typename T>
 void PrintHex(const T pbegin, const T pend, const char* pszFormat = "%s", bool fSpaces = true) {
 	LogPrint("INFO",pszFormat, HexStr(pbegin, pend, fSpaces).c_str());

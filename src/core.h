@@ -16,8 +16,8 @@
 #include <memory>
 
 /** No amount larger than this (in satoshi) is valid */
-static const int64_t MAX_MONEY = 1000000000 * COIN;
-static const int64_t MAX_MONEY_REG_NET = 20 * MAX_MONEY;
+static const int64_t MAX_MONEY = 10000000000 * COIN;
+static const int64_t MAX_MONEY_REG_NET = 5 * MAX_MONEY;
 
 static const int g_BlockVersion2 = 2;
 
